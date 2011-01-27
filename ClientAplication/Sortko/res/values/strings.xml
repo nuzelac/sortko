@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_name">Bubble sort</string>
+    <string name="app_name">Sortko</string>
+	<string name="suggestion">Zamjeni dva broja pritiskom na gumb</string>
+
+<string name="username">Ime i prezime</string>
+<string name="jmbag">jedinstveni broj igrača</string>
+<string name="unhint">koristi se za prikaz na listi najboljih igrača</string>
+<string name="resultmessage">Ostvareni rezultat je..</string>
+<string-array name="sorts"><item>Bubble Sort</item>
+<item>Insertion sort</item>
+
+<item>Quick sort</item>
+<item>Shell sort</item>
+<item>Selection sort</item><item>Merge sort</item>
+</string-array>
+</resources>
