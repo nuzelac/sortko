@@ -3,6 +3,7 @@ package fer.sortko.com;
 public class ShellSort extends Algorithm{
 	
 	private static boolean checkOrder = true;
+	int N = super.getNumbersCopy().length;
 	
 	public ShellSort (int numberOfElements){
 		super(numberOfElements);
@@ -11,14 +12,12 @@ public class ShellSort extends Algorithm{
 	
 	public AlgorithmPosition findSwitch(){
 		int switchCount = 0;
-		int N = super.getNumbersCopy().length;
 		int[] A = super.getNumbersCopy();
 		int i, j, korak;
 		this.help = 0;
 
 		for (korak = N / 2; korak > 0; korak /= 2) {
 			for (i = korak; i < N; i++) {
-				
 				switchCount++;
 				if (super.switchNumber == switchCount){
 					return new AlgorithmPosition(i, 8, A, checkOrder);

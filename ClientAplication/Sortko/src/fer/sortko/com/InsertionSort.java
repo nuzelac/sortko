@@ -3,6 +3,7 @@ package fer.sortko.com;
 public class InsertionSort extends Algorithm {
 
 	private static boolean checkOrder = true;
+	int N = super.getNumbersCopy().length;
 	
 	public InsertionSort (int numberOfElements){
 		super(numberOfElements);
@@ -11,7 +12,6 @@ public class InsertionSort extends Algorithm {
 
 	public AlgorithmPosition findSwitch(){
 		int switchCount = 0;
-		int N = super.getNumbersCopy().length;
 		int[] A = super.getNumbersCopy();
 		int i = 0, j = 0;
 		this.help = 0;

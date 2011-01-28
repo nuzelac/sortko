@@ -26,28 +26,29 @@ import android.widget.Toast;
 
 public class ResultsActivity extends Activity implements OnClickListener {
     
+	private long sortingResult = 0;
+	private int sortTypeNumber = 0;
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);  
         setContentView(R.layout.result);
         
-        long sortingResult = getIntent().getLongExtra("fer.sortko.com.result", 0);
+        sortingResult = getIntent().getLongExtra("fer.sortko.com.result", 0);
+        sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
         
         TextView resultTextView = (TextView) findViewById(R.id.result);
         resultTextView.setText(Long.toString(sortingResult));
         
         Button selectSort = (Button) findViewById(R.id.selectsort);
         selectSort.setOnClickListener((View.OnClickListener)this);
-        
-        //http://www.sortko.com.hr/sortkoservice.svc/PohraniRezultat?igrac=igor&rezultat=12&idvrstesorta=2
-		String result = getWebService("PohraniRezultat","igrac=igor&rezultat="+sortingResult+"&idvrstesorta=1");
-        
-        Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
-		toast.show();
+        //TODO: dodati da se èita iz storeage-a i šalje na server
+		String result = getWebService("PohraniRezultat","igrac=igor&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber);
 	}
+	
 	@Override
 	public void onClick(View view){
 		
@@ -63,7 +64,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
     	builder.setItems(items, new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int item) {
   	    	  Intent sortIntent = new Intent(ResultsActivity.this,SortingActivity.class); 
-	    	  sortIntent.putExtra("fer.sortko.com.sortNumber", item);
+	    	  sortIntent.putExtra("fer.sortko.com.sortTypeNumber", item);
 	    	  startActivity(sortIntent);
 	    	  finish();
         	}

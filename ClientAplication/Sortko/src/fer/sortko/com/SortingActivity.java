@@ -30,6 +30,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 	private long points = 0;
 	private int NO_NUMBERS = 8;
 	private int selectedButton = -1;
+	private int sortTypeNumber = 0;
 	private List<Button> list;
 	private Button helpVariable;
 	private TextView sortPoints, sortName;
@@ -51,8 +52,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 		sortPoints = (TextView) findViewById(R.id.sortpoints);
 		sortName = (TextView) findViewById(R.id.sortname);
 
-		int sortNumber = getIntent().getIntExtra("fer.sortko.com.sortNumber", 0);
-		startSort(sortNumber);
+		sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
+		startSort();
 
 		helpVariable = (Button) findViewById(R.id.helpvariable);
 		if (sort.NEEDS_HELP_VARIABLE){
@@ -94,13 +95,12 @@ public class SortingActivity extends Activity implements OnClickListener {
 			showResultActivity();
 		}
 	}
-
-	private void startSort(int sortNumber){
+	private void startSort(){
 		Resources res = getResources();
 		final CharSequence[] items = res.getStringArray(R.array.sorts);
-		sortName.setText(items[sortNumber]);
+		sortName.setText(items[sortTypeNumber]);
 
-		switch (sortNumber){
+		switch (sortTypeNumber){
 		case 0: sort = new BubbleSort(NO_NUMBERS);
 		break;
 		case 1: sort = new InsertionSort(NO_NUMBERS);
@@ -111,18 +111,15 @@ public class SortingActivity extends Activity implements OnClickListener {
 		break;
 		case 4: sort = new SelectionSort(NO_NUMBERS);
 		break;
-		case 5: sort = new BubbleSort(NO_NUMBERS);
-		break;
 		}
 	}
-
 	private void showResultActivity(){
 		Intent resultIntent = new Intent(SortingActivity.this, ResultsActivity.class);
 		resultIntent.putExtra("fer.sortko.com.result", points);
+		resultIntent.putExtra("fer.sortko.com.sortTypeNumber", sortTypeNumber);
 		startActivity(resultIntent);
 		finish();
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
@@ -148,7 +145,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		break;
 		}
 	}
-
+	//TODO: izmjeniti ikonu za izmjenu sorta, dodati novu sliku
 	private void changeSort() {
 		Resources resources = getResources();
 		final CharSequence[] items = resources.getStringArray(R.array.sorts);
@@ -157,7 +154,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int item) {
 				Intent sortIntent = new Intent(SortingActivity.this,SortingActivity.class); 
-				sortIntent.putExtra("fer.sortko.com.sortNumber", item);
+				sortIntent.putExtra("fer.sortko.com.sortTypeNumber", item);
 				startActivity(sortIntent);
 				finish();
 			}
@@ -165,7 +162,6 @@ public class SortingActivity extends Activity implements OnClickListener {
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-
 	private void selectButton(int buttonNumber){
 		if (selectedButton == -1){
 			selectedButton = buttonNumber;
@@ -215,7 +211,6 @@ public class SortingActivity extends Activity implements OnClickListener {
 		toast.setGravity(Gravity.TOP, 0, 50);
 		toast.show();
 	}
-
 	@Override
 	public void onConfigurationChanged(final Configuration newConfig)
 	{

@@ -16,13 +16,12 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 		this.setAlgorithmIndexI(i);
 		this.setAlgorithmIndexJ(j);
 		this.currentNumbersList = currentNumbersList;
-		this.checkOrder = checkOrder;
+		this.setCheckOrder(checkOrder);
 	}
 
 	public void setAlgorithmIndexJ(int algorithmIndexJ) {
 		this.algorithmIndexJ = algorithmIndexJ;
 	}
-
 	public int getAlgorithmIndexJ() {
 		return algorithmIndexJ;
 	}
@@ -32,6 +31,14 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	public int getAlgorithmIndexI() {
 		return algorithmIndexI;
 	}
+	public void setCheckOrder(boolean checkOrder) {
+		this.checkOrder = checkOrder;
+	}
+
+	public boolean isCheckOrder() {
+		return checkOrder;
+	}
+	
 	@Override
 	public boolean equals(Object checkValueObject){
 		if (this == checkValueObject) return true;
@@ -39,7 +46,7 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 
 		AlgorithmPosition checkValue = (AlgorithmPosition) checkValueObject;
 
-		if (!checkOrder){
+		if (!isCheckOrder()){
 			if (this.algorithmIndexI == checkValue.algorithmIndexI && this.algorithmIndexJ == checkValue.algorithmIndexJ 
 					|| this.algorithmIndexI == checkValue.algorithmIndexJ && this.algorithmIndexJ == checkValue.algorithmIndexI ){
 				return true;
@@ -69,5 +76,4 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	public int[] getCurrentNumbersList() {
 		return currentNumbersList;
 	}
-
 }

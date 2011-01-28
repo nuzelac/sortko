@@ -49,10 +49,8 @@ public abstract class Algorithm {
     	switchTime.setToNow();
 		double x = 1000 + 10000 * 1./Math.pow(1.5,sec);
 
-    	return (long)Math.floor(x);
-		
+    	return (long)Math.floor(x);		
 	}
-	
 	protected void setNumbers(int[] numbers) {
 		this.numbers = numbers;
 	}

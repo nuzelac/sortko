@@ -29,6 +29,7 @@ public class Main extends Activity{
         results.setOnClickListener(myListener);
 	}  
 	
+	//TODO: dodati da se upisuje ime igraca i njegov JMBAG i sprema u bazu
 	private OnClickListener myListener = new OnClickListener() {
 	    public void onClick(View v) {
 	      if (v.getId()==R.id.sortit){
@@ -49,7 +50,7 @@ public class Main extends Activity{
     	builder.setItems(items, new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int item) {
   	    	  Intent sortIntent = new Intent(Main.this, SortingActivity.class);
-	    	  sortIntent.putExtra("fer.sortko.com.sortNumber", item);
+	    	  sortIntent.putExtra("fer.sortko.com.sortTypeNumber", item);
 	    	  startActivity(sortIntent);
 	    	  finish();
         	}

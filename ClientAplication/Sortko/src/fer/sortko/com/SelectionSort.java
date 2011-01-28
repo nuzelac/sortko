@@ -2,14 +2,14 @@ package fer.sortko.com;
 
 public class SelectionSort extends Algorithm {
 
+	int N = super.getNumbersCopy().length;
+	
 	public SelectionSort (int numberOfElements){
 		super(numberOfElements);
 	}
 
 	public AlgorithmPosition findSwitch(){
-
 		int switchCount = 0;
-		int N = super.getNumbersCopy().length;
 		int[] A = super.getNumbersCopy();
 		int i, j, min, pom;
 

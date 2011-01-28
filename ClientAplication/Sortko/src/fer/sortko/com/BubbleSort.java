@@ -2,13 +2,14 @@ package fer.sortko.com;
 
 public class BubbleSort extends Algorithm{
 	
+	int N = super.getNumbersCopy().length;
+	
 	public BubbleSort (int numberOfElements){
 		super(numberOfElements);
 	}
 	
 	public AlgorithmPosition findSwitch(){
 		int switchCount = 0;
-		int N = super.getNumbersCopy().length;
 		int[] A = super.getNumbersCopy();
 		int i = 0, j = 0, pom = 0;
 
