@@ -39,8 +39,8 @@
 
 <ImageView android:id="@+id/changeSort"
 	android:layout_toRightOf="@+id/sortname"
-	android:layout_alignTop="@+id/sortname"
-	android:src="@drawable/icon"
+	android:src="@drawable/change_sort"
+	android:layout_alignBottom="@+id/sortname"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content"
     android:paddingTop="10px"

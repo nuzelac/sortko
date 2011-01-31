@@ -65,11 +65,19 @@ public abstract class Algorithm {
 	
 	private int[] randomList(int numberOfElements){
     	
+		int generatedNumbersCount = 0;
+		int number;
     	Random randomGenerator = new Random();
     	int[] list = new int[8];
+    	int[] digitCount = new int[10];
     	
-    	for (int i = 0; i < numberOfElements; i++){
-          list[i] = randomGenerator.nextInt(10);
+    	while (generatedNumbersCount < 8){
+    		number = randomGenerator.nextInt(10);
+    		if (digitCount[number] < 2){
+    			list[generatedNumbersCount] = number;
+    			digitCount[number]++;
+    			generatedNumbersCount++;
+    		}
         }
         return list;
     }

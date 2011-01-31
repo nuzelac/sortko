@@ -197,12 +197,13 @@ public class SortingActivity extends Activity implements OnClickListener {
 		}
 	}
 	private void refreshButtons() {
-		int[] newNumbers = sort.findSwitch().getCurrentNumbersList();
+		AlgorithmPosition ap = sort.findSwitch();
+		int[] newNumbers = ap.getCurrentNumbersList();
 		for (int i = 0; i<8; i++){
 			list.get(i).setText(Integer.toString(newNumbers[i]));
 		}
 		if (sort.NEEDS_HELP_VARIABLE){
-			helpVariable.setText(Integer.toString(sort.help));
+			helpVariable.setText(Integer.toString(ap.getHelpVariable()));
 		}
 		sortPoints.setText(Long.toString(this.points));
 	}

@@ -17,6 +17,7 @@ public class QuickSort extends Algorithm{
 
 	public AlgorithmPosition findSwitch(){
 		A = super.getNumbersCopy();
+		this.help = 0;
 		positionChanged = false;
 		switchCount = 0;
 		algorithmPosition = new AlgorithmPosition(0,0,A);
@@ -33,7 +34,7 @@ public class QuickSort extends Algorithm{
 			for(int br=0; br < N; br++ ){
 				currentNumbersList[br] = A[br];
 			}
-			this.algorithmPosition = new AlgorithmPosition(i, j, currentNumbersList, checkOrder);
+			this.algorithmPosition = new AlgorithmPosition(i, j, currentNumbersList, checkOrder, this.help);
 			positionChanged = true;
 		}
 	}
@@ -89,7 +90,6 @@ public class QuickSort extends Algorithm{
 	
 	private void InsertionSort(int lijevo, int desno){
 		int N = desno - lijevo + 1; 
-		this.help = 0;
 		for (int i = 1 + lijevo; i < N + lijevo; i++){
 			// 8 oznaka za pomocnu varijablu, hardkodirano
 			setAlgorithmPosition(i, 8, checkOrder);

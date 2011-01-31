@@ -3,6 +3,7 @@ package fer.sortko.com;
 public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	private int algorithmIndexI;
 	private int algorithmIndexJ;
+	private int helpVariable;
 	private int[] currentNumbersList;
 	private boolean checkOrder = false;
 
@@ -12,11 +13,12 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 		this.currentNumbersList = currentNumbersList;
 	}
 
-	public AlgorithmPosition(int i, int j,int[] currentNumbersList, boolean checkOrder){
+	public AlgorithmPosition(int i, int j,int[] currentNumbersList, boolean checkOrder, int helpVariable){
 		this.setAlgorithmIndexI(i);
 		this.setAlgorithmIndexJ(j);
 		this.currentNumbersList = currentNumbersList;
 		this.setCheckOrder(checkOrder);
+		this.setHelpVariable(helpVariable);
 	}
 
 	public void setAlgorithmIndexJ(int algorithmIndexJ) {
@@ -75,5 +77,13 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 
 	public int[] getCurrentNumbersList() {
 		return currentNumbersList;
+	}
+
+	public void setHelpVariable(int helpVariable) {
+		this.helpVariable = helpVariable;
+	}
+
+	public int getHelpVariable() {
+		return helpVariable;
 	}
 }

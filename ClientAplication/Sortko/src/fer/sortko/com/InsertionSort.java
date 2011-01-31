@@ -21,24 +21,24 @@ public class InsertionSort extends Algorithm {
 			switchCount++;
 			if (super.switchNumber == switchCount){
 				// 8 oznaka za pomocnu varijablu, hardkodirano
-				return new AlgorithmPosition(i, 8, A, checkOrder);
+				return new AlgorithmPosition(i, 8, A, checkOrder, this.help);
 			}
 			this.help = A[i];
 
 			for (j = i; j >= 1 && A[j-1] > help; j--){
 				switchCount++;
 				if (super.switchNumber == switchCount){
-					return new AlgorithmPosition(j-1, j, A, checkOrder);
+					return new AlgorithmPosition(j-1, j, A, checkOrder, this.help);
 				}
 				A[j] = A[j-1];
 			}
 			switchCount++;
 			if (super.switchNumber == switchCount){
-				return new AlgorithmPosition(8, j, A, checkOrder);
+				return new AlgorithmPosition(8, j, A, checkOrder, this.help);
 			}
 			A[j] = help;
 		}
 		// nema zamjena, algoritam završen
-		return new AlgorithmPosition(0, 0, A, checkOrder);
+		return new AlgorithmPosition(0, 0, A, checkOrder, this.help);
 	}
 }
