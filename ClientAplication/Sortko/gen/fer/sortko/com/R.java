@@ -32,10 +32,10 @@ public final class R {
         public static final int result=0x7f060009;
         public static final int results=0x7f060008;
         public static final int selectsort=0x7f06000a;
+        public static final int sortHelpMessage=0x7f06000e;
         public static final int sortit=0x7f060007;
         public static final int sortname=0x7f06000c;
         public static final int sortpoints=0x7f06000b;
-        public static final int suggestion=0x7f06000e;
         public static final int userdataform=0x7f060001;
         public static final int username=0x7f060002;
     }
@@ -48,8 +48,8 @@ public final class R {
         public static final int app_name=0x7f040001;
         public static final int jmbag=0x7f040004;
         public static final int resultmessage=0x7f040006;
+        public static final int sortHelpMessage=0x7f040002;
         public static final int sort_name=0x7f040000;
-        public static final int suggestion=0x7f040002;
         public static final int unhint=0x7f040005;
         public static final int username=0x7f040003;
     }

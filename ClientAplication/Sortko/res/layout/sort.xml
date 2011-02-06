@@ -47,7 +47,7 @@
     android:paddingLeft="10px">
 </ImageView>
     
-<TextView android:id="@+id/suggestion"
+<TextView android:id="@+id/sortHelpMessage"
 	android:layout_below="@+id/sortname"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
     android:paddingLeft="12px"
     android:textStyle="bold"
     android:textSize="16px"
-    android:text="@string/suggestion"
+    android:text="@string/sortHelpMessage"
     />
     
 <LinearLayout

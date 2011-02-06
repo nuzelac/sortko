@@ -2,7 +2,7 @@
 <resources>
     <string name="sort_name">Bubble sort</string>
     <string name="app_name">Sortko</string>
-	<string name="suggestion">Zamjeni dva broja pritiskom na gumb</string>
+	<string name="sortHelpMessage">Zamjeni dva broja pritiskom na gumb</string>
 
 <string name="username">Ime i prezime</string>
 <string name="jmbag">jedinstveni broj igrača</string>

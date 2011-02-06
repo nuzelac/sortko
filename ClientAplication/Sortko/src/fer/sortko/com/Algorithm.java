@@ -25,8 +25,7 @@ public abstract class Algorithm {
 	public boolean isNextPosition(AlgorithmPosition positionToCheck){
 		return findSwitch().equals(positionToCheck);
 	}
-	public boolean isFinished(){
-		AlgorithmPosition ap = this.findSwitch();
+	public boolean isFinished(AlgorithmPosition ap){
 		return (ap.getAlgorithmIndexI() == ap.getAlgorithmIndexJ());
 	}
 	

@@ -6,11 +6,16 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	private int helpVariable;
 	private int[] currentNumbersList;
 	private boolean checkOrder = false;
+	private AlgorithmPosition previousAlgorithmPosition = null;
 
 	public AlgorithmPosition(int i, int j,int[] currentNumbersList){
 		this.setAlgorithmIndexI(i);
 		this.setAlgorithmIndexJ(j);
 		this.currentNumbersList = currentNumbersList;
+	}
+	
+	public String getHelpMessage(){
+		return "Base class message!";
 	}
 
 	public AlgorithmPosition(int i, int j,int[] currentNumbersList, boolean checkOrder, int helpVariable){
@@ -85,5 +90,13 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 
 	public int getHelpVariable() {
 		return helpVariable;
+	}
+
+	public void setPreviousAlgorithmPosition(AlgorithmPosition previousAlgorithmPosition) {
+		this.previousAlgorithmPosition = previousAlgorithmPosition;
+	}
+
+	public AlgorithmPosition getPreviousAlgorithmPosition(){
+		return previousAlgorithmPosition;
 	}
 }

@@ -33,7 +33,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 	private int sortTypeNumber = 0;
 	private List<Button> list;
 	private Button helpVariable;
-	private TextView sortPoints, sortName;
+	private TextView sortPoints, sortName, sortHelpMessage;
 	Algorithm sort;
 
 	@Override
@@ -51,6 +51,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 
 		sortPoints = (TextView) findViewById(R.id.sortpoints);
 		sortName = (TextView) findViewById(R.id.sortname);
+		sortHelpMessage = (TextView) findViewById(R.id.sortHelpMessage); 
 
 		sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
 		startSort();
@@ -58,7 +59,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		helpVariable = (Button) findViewById(R.id.helpvariable);
 		if (sort.NEEDS_HELP_VARIABLE){
 			helpVariable.setId(2008);
-			helpVariable.setText("X");
+			helpVariable.setText(" ");
 			helpVariable.setVisibility(View.VISIBLE);
 			helpVariable.setOnClickListener((OnClickListener) this);
 		}
@@ -88,9 +89,12 @@ public class SortingActivity extends Activity implements OnClickListener {
 			buttonList.addView(btn);
 			list.add(btn);
 		}
-		list.add(helpVariable);
-
-		if(sort.isFinished()){
+		if (sort.NEEDS_HELP_VARIABLE){
+			list.add(helpVariable);
+		}
+		
+		AlgorithmPosition ap = sort.findSwitch();
+		if(sort.isFinished(ap)){
 			displayMessage("Algoritam završen");
 			showResultActivity();
 		}
@@ -145,8 +149,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 		break;
 		}
 	}
-	//TODO: izmjeniti ikonu za izmjenu sorta, dodati novu sliku
-	private void changeSort() {
+	
+	private void changeSort(){
 		Resources resources = getResources();
 		final CharSequence[] items = resources.getStringArray(R.array.sorts);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -163,41 +167,52 @@ public class SortingActivity extends Activity implements OnClickListener {
 		alert.show();
 	}
 	private void selectButton(int buttonNumber){
+		
+		AlgorithmPosition ap = sort.findSwitch();
+		
 		if (selectedButton == -1){
 			selectedButton = buttonNumber;
 			list.get(buttonNumber).setBackgroundResource(R.drawable.selected_button);
-
+			refreshHelpMessage(ap);
 		}
 		else if (selectedButton == buttonNumber){
 			selectedButton = -1;
 			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
+			refreshHelpMessage(ap);
 		}
 		else {
 			// pokušaj zamjeniti brojeve, ako uspije vraæa bodove
 			long newPoints = sort.goToNextPosition(new AlgorithmPosition(selectedButton, buttonNumber, null));
+			ap = sort.findSwitch();
 
 			if(newPoints > 0){
 				points += newPoints;
 			}
 			else {
-				points -= sort.NEGATIVE_POINTS;
+				points -= Algorithm.NEGATIVE_POINTS;
+				//TODO: dodati u resources poruku
 				displayMessage("Niste odabrali dobar korak!");
 			}
-
-			refreshButtons();
-
+			
+			refreshButtons(ap);
+			refreshHelpMessage(ap);
+			
 			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
 			list.get(selectedButton).setBackgroundResource(R.drawable.normal_button);
 			selectedButton = -1;
 
-			if(sort.isFinished()){
+			if(sort.isFinished(ap)){
+				//TODO: dodati u resources poruku
 				displayMessage("Algoritam završen!");
 				showResultActivity();
 			}
 		}
 	}
-	private void refreshButtons() {
-		AlgorithmPosition ap = sort.findSwitch();
+	private void refreshHelpMessage(AlgorithmPosition ap) {
+		String message = ap.getHelpMessage();
+		this.sortHelpMessage.setText(message);
+	}
+	private void refreshButtons(AlgorithmPosition ap) {
 		int[] newNumbers = ap.getCurrentNumbersList();
 		for (int i = 0; i<8; i++){
 			list.get(i).setText(Integer.toString(newNumbers[i]));
@@ -206,6 +221,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 			helpVariable.setText(Integer.toString(ap.getHelpVariable()));
 		}
 		sortPoints.setText(Long.toString(this.points));
+		
+		// 
 	}
 	private void displayMessage(String string) {
 		Toast toast = Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT);
