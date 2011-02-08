@@ -94,6 +94,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 		}
 		
 		AlgorithmPosition ap = sort.findSwitch();
+		refreshHelpMessage(ap,ap);
+		
 		if(sort.isFinished(ap)){
 			displayMessage("Algoritam završen");
 			showResultActivity();
@@ -173,16 +175,16 @@ public class SortingActivity extends Activity implements OnClickListener {
 		if (selectedButton == -1){
 			selectedButton = buttonNumber;
 			list.get(buttonNumber).setBackgroundResource(R.drawable.selected_button);
-			refreshHelpMessage(ap);
 		}
 		else if (selectedButton == buttonNumber){
 			selectedButton = -1;
 			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
-			refreshHelpMessage(ap);
 		}
 		else {
 			// pokušaj zamjeniti brojeve, ako uspije vraæa bodove
-			long newPoints = sort.goToNextPosition(new AlgorithmPosition(selectedButton, buttonNumber, null));
+			AlgorithmPosition userAlgorithmPosition = new AlgorithmPosition(selectedButton, buttonNumber, null);
+			long newPoints = sort.goToNextPosition(userAlgorithmPosition);
+			
 			ap = sort.findSwitch();
 
 			if(newPoints > 0){
@@ -195,7 +197,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 			}
 			
 			refreshButtons(ap);
-			refreshHelpMessage(ap);
+			refreshHelpMessage(ap, userAlgorithmPosition);
 			
 			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
 			list.get(selectedButton).setBackgroundResource(R.drawable.normal_button);
@@ -208,8 +210,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
-	private void refreshHelpMessage(AlgorithmPosition ap) {
-		String message = ap.getHelpMessage();
+	private void refreshHelpMessage(AlgorithmPosition ap, AlgorithmPosition userAp) {
+		String message = ap.getHelpMessage(userAp);
 		this.sortHelpMessage.setText(message);
 	}
 	private void refreshButtons(AlgorithmPosition ap) {

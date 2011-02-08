@@ -34,17 +34,15 @@ public class BubbleSort extends Algorithm{
 		
 		return this.positionToReturn;
 	}
-	//TODO: promjeniti u outerLoopIndex
-	private void SetAlgorithmPosition(int i, int j, int[]A, int indexOuterLoop){
+	private void SetAlgorithmPosition(int i, int j, int[]A, int outerLoopIndex){
 		switchCount++;
 		if (super.switchNumber == switchCount){
-			this.positionToReturn = new BubbleSortPosition(i, j, A.clone(), indexOuterLoop);
+			this.positionToReturn = new BubbleSortPosition(i, j, A.clone(), outerLoopIndex);
 			positionToReturn.setPreviousAlgorithmPosition(this.lastChangePosition);
 			positionReturned = true;
-			
 		}
 		if(!positionReturned){
-			this.lastChangePosition = new BubbleSortPosition(i, j, A.clone(), indexOuterLoop);
+			this.lastChangePosition = new BubbleSortPosition(i, j, A.clone(), outerLoopIndex);
 		}
 	}
 }

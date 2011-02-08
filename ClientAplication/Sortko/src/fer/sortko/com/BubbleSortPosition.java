@@ -2,28 +2,30 @@ package fer.sortko.com;
 
 public class BubbleSortPosition extends AlgorithmPosition{
 	
-	private int indexOuterLoop;
+	private int outerLoopIndex;
 
 	public BubbleSortPosition(int i, int j, int[] currentNumbersList, int indexOuterLoop) {
 		super(i, j, currentNumbersList);
-		this.indexOuterLoop = indexOuterLoop;
+		this.outerLoopIndex = indexOuterLoop;
 	}
 	
 	@Override
-	public String getHelpMessage(){
-		String s = "Krenite u " + Integer.toString(this.indexOuterLoop + 1)+ ". prolaz polja s lijeva. Mijenjajte susjedne znamenke ako je lijeva znamenka veæa od desne.";
-		String k = "Zadnja uspješna zamjena bili su indexi "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexI())
-			+" i "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexJ())+". Nastavite na desno usporeðivati susjedne brojeve.";
+	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition){
 		
-		// pp(0,0);
-		// kada je pp outerindex razlièit od trenutnog outerindexa
+		String pocetak = "Krenite u " + Integer.toString(this.outerLoopIndex + 1)+ ". prolaz polja s lijeva. Mijenjajte susjedne znamenke ako je lijeva znamenka veæa od desne.";
+		String uspjeh = "Zadnja uspješna zamjena bili su indexi "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexI())
+			+" i "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexJ())+". Nastavite na desno usporeðivati brojeve.";
+		String greska = "Kod Bubble sorta se uvijek mijenjaju susjedni elementi. " + uspjeh;
 		
-		if (this.indexOuterLoop != ((BubbleSortPosition)this.getPreviousAlgorithmPosition()).indexOuterLoop ||
-				(((BubbleSortPosition)this.getPreviousAlgorithmPosition()).indexOuterLoop == 0 && 
+		if(Math.abs(userAlgorithmPosition.getAlgorithmIndexI()-userAlgorithmPosition.getAlgorithmIndexJ()) > 1){
+			return greska;
+		}
+		else if (this.outerLoopIndex != ((BubbleSortPosition)this.getPreviousAlgorithmPosition()).outerLoopIndex ||
+				(((BubbleSortPosition)this.getPreviousAlgorithmPosition()).outerLoopIndex == 0 && 
 						((BubbleSortPosition)this.getPreviousAlgorithmPosition()).getAlgorithmIndexI() == 0)){
-			return s;
+			return pocetak;
 		} else {
-			return k;
+			return uspjeh;
 		}
 	}
 }

@@ -53,7 +53,6 @@ public abstract class Algorithm {
 	protected void setNumbers(int[] numbers) {
 		this.numbers = numbers;
 	}
-
 	protected int[] getNumbersCopy(){
 		int[] a = new int[numberOfElements];
 		for(int i=0; i < numberOfElements; i++ ){
@@ -61,9 +60,7 @@ public abstract class Algorithm {
 		}
 		return a;
 	}
-	
 	private int[] randomList(int numberOfElements){
-    	
 		int generatedNumbersCount = 0;
 		int number;
     	Random randomGenerator = new Random();
@@ -80,9 +77,4 @@ public abstract class Algorithm {
         }
         return list;
     }
-	
-	public void reset(){
-		this.switchNumber = 1;
-		setNumbers(randomList(numberOfElements));
-	}
 }

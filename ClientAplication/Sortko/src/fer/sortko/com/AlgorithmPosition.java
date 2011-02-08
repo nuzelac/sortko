@@ -14,7 +14,7 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 		this.currentNumbersList = currentNumbersList;
 	}
 	
-	public String getHelpMessage(){
+	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition){
 		return "Base class message!";
 	}
 
@@ -35,14 +35,14 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	public void setAlgorithmIndexI(int algorithmIndexI) {
 		this.algorithmIndexI = algorithmIndexI;
 	}
-	public int getAlgorithmIndexI() {
+	public int getAlgorithmIndexI(){
 		return algorithmIndexI;
 	}
-	public void setCheckOrder(boolean checkOrder) {
+	public void setCheckOrder(boolean checkOrder){
 		this.checkOrder = checkOrder;
 	}
 
-	public boolean isCheckOrder() {
+	public boolean isCheckOrder(){
 		return checkOrder;
 	}
 	

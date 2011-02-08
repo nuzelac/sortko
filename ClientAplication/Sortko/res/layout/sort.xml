@@ -40,10 +40,10 @@
 <ImageView android:id="@+id/changeSort"
 	android:layout_toRightOf="@+id/sortname"
 	android:src="@drawable/change_sort"
-	android:layout_alignBottom="@+id/sortname"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content"
-    android:paddingTop="10px"
+    android:layout_alignBottom="@+id/sortname"
+    android:paddingBottom="3px"
     android:paddingLeft="10px">
 </ImageView>
     
@@ -51,8 +51,8 @@
 	android:layout_below="@+id/sortname"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
-    android:maxLines="2"
-    android:paddingTop="25px"
+    android:maxLines="3"
+    android:paddingTop="15px"
     android:paddingLeft="12px"
     android:textStyle="bold"
     android:textSize="16px"
@@ -62,7 +62,7 @@
 <LinearLayout
     android:id="@+id/buttonlist"
     android:layout_alignParentLeft="true"
-    android:layout_marginTop="180px"
+    android:layout_marginTop="200px"
     android:layout_marginLeft="5px"
     android:layout_marginRight="5px"
     android:orientation="horizontal"
