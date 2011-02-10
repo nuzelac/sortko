@@ -1,13 +1,14 @@
 package fer.sortko.com;
 
-public class QuickSort extends Algorithm{
-	
-	private static int cutoff = 3;
+public class QuickSort extends Algorithm {
+	private QuickSortPosition lastChangePosition = null;
+	private QuickSortPosition positionToReturn = null;
+	private int N = super.getNumbersCopy().length;
 	private static boolean checkOrder = true;
+	private static int cutoff = 3;
+	private int[] A = null;
 	int switchCount = 0;
-	int N = super.getNumbersCopy().length;
-	int[] A;
-	private AlgorithmPosition algorithmPosition = new AlgorithmPosition(0,0,A);
+
 	private boolean positionChanged = false;
 	
 	public QuickSort (int numberOfElements){
@@ -20,21 +21,17 @@ public class QuickSort extends Algorithm{
 		this.help = 0;
 		positionChanged = false;
 		switchCount = 0;
-		algorithmPosition = new AlgorithmPosition(0,0,A);
+		positionToReturn = new QuickSortPosition(0, 0, A, false, 0, QsPosition.median);
 		
 		QSort (0, N - 1);
 
-		return algorithmPosition;
+		return positionToReturn;
 	}
 	
 	private void setAlgorithmPosition(int i,int j, boolean checkOrder, QsPosition qsPosition){
 		switchCount++;
 		if (super.switchNumber == switchCount && !positionChanged){			
-			int[] currentNumbersList = new int[N];
-			for(int br=0; br < N; br++ ){
-				currentNumbersList[br] = A[br];
-			}
-			this.algorithmPosition = new AlgorithmPosition(i, j, currentNumbersList, checkOrder, this.help);
+			this.positionToReturn = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition);
 			positionChanged = true;
 		}
 	}
@@ -110,7 +107,7 @@ public class QuickSort extends Algorithm{
 		A[indexDesno] = pom;
 	}
 	
-	private enum QsPosition {
+	public enum QsPosition {
 		median,hidden,regularqs,insertion
 	}
 }

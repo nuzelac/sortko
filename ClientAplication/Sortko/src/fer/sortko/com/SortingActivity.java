@@ -202,8 +202,9 @@ public class SortingActivity extends Activity implements OnClickListener {
 			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
 			list.get(selectedButton).setBackgroundResource(R.drawable.normal_button);
 			selectedButton = -1;
-
-			if(sort.isFinished(ap)){
+			
+			if(sort.isFinished(sort.findSwitch())){
+				//TODO: ako je algoritam završen odmah onesposobiti tipke, eventualno promjeniti boju
 				//TODO: dodati u resources poruku
 				displayMessage("Algoritam završen!");
 				showResultActivity();
@@ -223,8 +224,6 @@ public class SortingActivity extends Activity implements OnClickListener {
 			helpVariable.setText(Integer.toString(ap.getHelpVariable()));
 		}
 		sortPoints.setText(Long.toString(this.points));
-		
-		// 
 	}
 	private void displayMessage(String string) {
 		Toast toast = Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT);

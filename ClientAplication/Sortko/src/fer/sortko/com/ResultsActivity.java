@@ -28,6 +28,8 @@ public class ResultsActivity extends Activity implements OnClickListener {
     
 	private long sortingResult = 0;
 	private int sortTypeNumber = 0;
+	//TODO: èitanje i spremanje liste u storage tako da ako nema veze na net da se uèita iz toga
+	//TODO: dodati èitanje liste najboljih rezultata
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
         Button selectSort = (Button) findViewById(R.id.selectsort);
         selectSort.setOnClickListener((View.OnClickListener)this);
         //TODO: dodati da se èita iz storeage-a i šalje na server
+        //TODO: dodati da se radi u zasebnoj dretvi
 		String result = getWebService("PohraniRezultat","igrac=igor&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber);
 	}
 	

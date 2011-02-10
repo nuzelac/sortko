@@ -5,7 +5,7 @@ public class BubbleSort extends Algorithm{
 	private BubbleSortPosition positionToReturn = null;
 	private int switchCount = 0;
 	private Boolean positionReturned = false;
-	int N = super.getNumbersCopy().length;
+	private int N = super.getNumbersCopy().length;
 	
 	public BubbleSort (int numberOfElements){
 		super(numberOfElements);

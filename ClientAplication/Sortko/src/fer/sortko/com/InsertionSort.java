@@ -2,8 +2,15 @@ package fer.sortko.com;
 
 public class InsertionSort extends Algorithm {
 
-	private static boolean checkOrder = true;
-	int N = super.getNumbersCopy().length;
+	private AlgorithmPosition lastChangePosition = null;
+	private AlgorithmPosition positionToReturn = null;
+	private static int helpVariableIndex = 8; 
+	private boolean positionReturned = false;
+	private int switchCount = 0;
+	private int[] A = null;
+	private int i = 0;
+	private int j = 0;
+	private int N = super.getNumbersCopy().length;
 	
 	public InsertionSort (int numberOfElements){
 		super(numberOfElements);
@@ -11,34 +18,37 @@ public class InsertionSort extends Algorithm {
 	}
 
 	public AlgorithmPosition findSwitch(){
-		int switchCount = 0;
-		int[] A = super.getNumbersCopy();
-		int i = 0, j = 0;
+		A = super.getNumbersCopy();
+		switchCount = 0;
 		this.help = 0;
+		i = 0;
+		j = 0;
+		
+		this.lastChangePosition = new InsertionSortPosition(0, 0, A, 0, 0);
+		this.positionToReturn = new InsertionSortPosition(0, 0, A, 0, 0);
+		this.positionToReturn.setPreviousAlgorithmPosition(lastChangePosition);
 
-		for (i = 1; i < N; i++) {
-
-			switchCount++;
-			if (super.switchNumber == switchCount){
-				// 8 oznaka za pomocnu varijablu, hardkodirano
-				return new AlgorithmPosition(i, 8, A, checkOrder, this.help);
-			}
+		for (i = 1; i < N; i++){
+			SetAlgorithmPosition(i, helpVariableIndex, i);
 			this.help = A[i];
-
 			for (j = i; j >= 1 && A[j-1] > help; j--){
-				switchCount++;
-				if (super.switchNumber == switchCount){
-					return new AlgorithmPosition(j-1, j, A, checkOrder, this.help);
-				}
+				SetAlgorithmPosition(j-1, j, i);
 				A[j] = A[j-1];
 			}
-			switchCount++;
-			if (super.switchNumber == switchCount){
-				return new AlgorithmPosition(8, j, A, checkOrder, this.help);
-			}
+			SetAlgorithmPosition(helpVariableIndex, j, i);
 			A[j] = help;
 		}
-		// nema zamjena, algoritam završen
-		return new AlgorithmPosition(0, 0, A, checkOrder, this.help);
+		return this.positionToReturn;
+	}
+	private void SetAlgorithmPosition(int i, int j, int outerLoopIndex){
+		switchCount++;
+		if (super.switchNumber == switchCount){
+			positionToReturn = new InsertionSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex);
+			positionToReturn.setPreviousAlgorithmPosition(this.lastChangePosition);
+			positionReturned = true;
+		}
+		if(!positionReturned){
+			this.lastChangePosition = new InsertionSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex);
+		}
 	}
 }
