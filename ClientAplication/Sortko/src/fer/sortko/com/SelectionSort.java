@@ -36,7 +36,9 @@ public class SelectionSort extends Algorithm {
 					min = j;
 				}
 			}
-			SetAlgorithmPosition (i, min);
+			if(i != min){
+				SetAlgorithmPosition (i, min);
+			}
 			
 			help = A[i];
 			A[i] = A[min];

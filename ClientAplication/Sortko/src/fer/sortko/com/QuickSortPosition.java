@@ -1,4 +1,5 @@
 package fer.sortko.com;
+
 /*
 Quicksort
 1.	Izraèunajte medijan od 1. elementa, (lijevog) srednjeg  i 8. tako da najprije usporedite 1. i srednji i zatim 1. i 8..
@@ -14,7 +15,6 @@ public class QuickSortPosition extends AlgorithmPosition{
 	
 	public QuickSortPosition(int i, int j, int[] currentNumbersList, boolean checkOrder, int help, QuickSort.QsPosition qsPosition){
 		super(i, j, currentNumbersList, checkOrder, help);
-		this.outerLoopIndex  = outerLoopIndex;
 		this.qsPosition = qsPosition;
 	}
 	

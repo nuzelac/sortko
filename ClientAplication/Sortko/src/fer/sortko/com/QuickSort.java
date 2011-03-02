@@ -5,11 +5,12 @@ public class QuickSort extends Algorithm {
 	private QuickSortPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
 	private static boolean checkOrder = true;
+	private boolean positionChanged = false;
 	private static int cutoff = 3;
 	private int[] A = null;
 	int switchCount = 0;
 
-	private boolean positionChanged = false;
+
 	
 	public QuickSort (int numberOfElements){
 		super(numberOfElements);

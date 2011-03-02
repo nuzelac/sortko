@@ -1,9 +1,17 @@
 package fer.sortko.com;
 
 public class ShellSort extends Algorithm{
-	
+	private AlgorithmPosition lastChangePosition = null;
+	private AlgorithmPosition positionToReturn = null;
+	private int N = super.getNumbersCopy().length;
+	private static int helpVariableIndex = 8; 
+	private boolean positionReturned = false;
 	private static boolean checkOrder = true;
-	int N = super.getNumbersCopy().length;
+	private int switchCount = 0;
+	private int[] A = null;
+	private int korak = 0;
+	private int i = 0;
+	private int j = 0;
 	
 	public ShellSort (int numberOfElements){
 		super(numberOfElements);
@@ -11,36 +19,45 @@ public class ShellSort extends Algorithm{
 	}
 	
 	public AlgorithmPosition findSwitch(){
-		int switchCount = 0;
-		int[] A = super.getNumbersCopy();
-		int i, j, korak;
+		A = super.getNumbersCopy();
+		switchCount = 0;
 		this.help = 0;
+		i = 0;
+		j = 0;
+		korak = 0;
+		
+		this.lastChangePosition = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart);
+		this.positionToReturn = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart);
+		this.positionToReturn.setPreviousAlgorithmPosition(lastChangePosition);
 
 		for (korak = N / 2; korak > 0; korak /= 2) {
 			for (i = korak; i < N; i++) {
-				switchCount++;
-				if (super.switchNumber == switchCount){
-					return new AlgorithmPosition(i, 8, A, checkOrder, this.help);
-				}
+				SetAlgorithmPosition(i, 8, i, korak, ShellPosition.stepStart);
 				help = A [i];
 				
 				for (j = i; j >= korak && A[j-korak] > help; j -= korak) {
-					switchCount++;
-					if (super.switchNumber == switchCount){
-						return new AlgorithmPosition(j - korak, j, A, checkOrder, this.help);
-					}
+					SetAlgorithmPosition(j - korak, j, i, korak, ShellPosition.stepCompare);
 					A [j] = A [j - korak];
 				}
 				
-				switchCount++;
-				if (super.switchNumber == switchCount){
-					return new AlgorithmPosition(8, j, A, checkOrder, this.help);
-				}
+				SetAlgorithmPosition(8, j, i, korak, ShellPosition.stepReturn);
 				A [j] = help;
 			}
 		}
-		
-		// nema zamjena, algoritam završen
-		return new AlgorithmPosition(0, 0, A);
+		return this.positionToReturn;
+	}
+	private void SetAlgorithmPosition(int i, int j, int outerLoopIndex, int korak, ShellPosition sp){
+		switchCount++;
+		if (super.switchNumber == switchCount){
+			positionToReturn = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp);
+			positionToReturn.setPreviousAlgorithmPosition(this.lastChangePosition);
+			positionReturned = true;
+		}
+		if(!positionReturned){
+			this.lastChangePosition = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp);
+		}
+	}
+	public enum ShellPosition {
+		stepStart, stepCompare, stepReturn
 	}
 }

@@ -4,10 +4,6 @@ package fer.sortko.com;
  * 2.	Zamjeni najmanji element polja desno od i-tog elementa s i-tim elementom.
  * Moguæe poruke pogreške
  * 1.	Mjenja se s prvim najmanjim brojem.
- * 
- * 
- * 
- * 
  */
 
 public class SelectionSortPosition extends AlgorithmPosition{

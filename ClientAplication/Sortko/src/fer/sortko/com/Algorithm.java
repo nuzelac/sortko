@@ -26,7 +26,7 @@ public abstract class Algorithm {
 		return findSwitch().equals(positionToCheck);
 	}
 	public boolean isFinished(AlgorithmPosition ap){
-		return (ap.getAlgorithmIndexI() == ap.getAlgorithmIndexJ());
+		return (ap.getAlgorithmIndexI() == 0 && ap.getAlgorithmIndexJ() == 0);
 	}
 	
 	public long goToNextPosition(AlgorithmPosition userPosition){
@@ -38,6 +38,7 @@ public abstract class Algorithm {
 		else return 0;
 	}
 	private long calculatePoints(){
+		// TODO: razmisliti i preurediti
 		// 10000 * 1/1.5^(x) + 1000
 		// preinaèiti da svaki algoritam može maximalno 999 999 / 6 osvojiti
 		// i to ukoliko ima maximalni moguæi broj promjena
@@ -61,6 +62,7 @@ public abstract class Algorithm {
 		return a;
 	}
 	private int[] randomList(int numberOfElements){
+		//TODO: generirati bar 4 zamjene
 		int generatedNumbersCount = 0;
 		int number;
     	Random randomGenerator = new Random();
