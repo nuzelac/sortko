@@ -70,7 +70,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 			btn.setId(2000+i);
 			Integer randomNumber = sort.getNumbersCopy()[i];
 			btn.setText(randomNumber.toString());
-			btn.setBackgroundResource(R.drawable.normal_button);
+			btn.setBackgroundResource(R.drawable.button);
 			btn.setTextSize((float)26.0);
 			btn.setTextColor(Color.WHITE);
 			btn.setTypeface(Typeface.DEFAULT_BOLD);
@@ -88,10 +88,6 @@ public class SortingActivity extends Activity implements OnClickListener {
 			helpVariable.setId(2008);
 			helpVariable.setText(" ");
 			helpVariable.setVisibility(View.VISIBLE);
-			helpVariable.setBackgroundResource(R.drawable.normal_button);
-			helpVariable.setTextSize((float)26.0);
-			helpVariable.setTextColor(Color.WHITE);
-			helpVariable.setTypeface(Typeface.DEFAULT_BOLD);
 			helpVariable.setOnClickListener((OnClickListener) this);
 			list.add(helpVariable);
 		}
@@ -181,7 +177,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		}
 		else if (selectedButton == buttonNumber){
 			selectedButton = -1;
-			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
+			list.get(buttonNumber).setBackgroundResource(R.drawable.button);
 		}
 		else {
 			// pokušaj zamjeniti brojeve, ako uspije vraæa bodove
@@ -202,8 +198,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 			refreshButtons(ap);
 			refreshHelpMessage(ap, userAlgorithmPosition);
 			
-			list.get(buttonNumber).setBackgroundResource(R.drawable.normal_button);
-			list.get(selectedButton).setBackgroundResource(R.drawable.normal_button);
+			list.get(buttonNumber).setBackgroundResource(R.drawable.button);
+			list.get(selectedButton).setBackgroundResource(R.drawable.button);
 			selectedButton = -1;
 			
 			if(sort.isFinished(sort.findSwitch())){

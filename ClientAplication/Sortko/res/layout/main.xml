@@ -71,13 +71,22 @@
     		android:text="Sortiraj" 
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
+    		android:background="@drawable/button"
+    		android:textColor="#ffffff"	
+    		android:textSize="20dp"
+			android:textStyle ="bold"
     	    android:paddingTop="10dp">
     	</Button>
 		<Button android:id="@+id/results"
 			android:text="Rezultati"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-		    android:paddingTop="10dp">
+			android:background="@drawable/button"
+			android:textColor="#ffffff"
+			android:textSize="20dp"
+			android:textStyle ="bold"
+		    android:paddingTop="10dp"
+		    android:layout_marginLeft="10dp">
 		</Button>
     </LinearLayout>
 </LinearLayout>
