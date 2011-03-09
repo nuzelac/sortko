@@ -9,15 +9,15 @@
 	android:src="@drawable/sortko"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content"
-    android:paddingTop="10px"
-    android:paddingLeft="10px">
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp">
 </ImageView>
     
 <LinearLayout android:id="@+id/userdataform"
     android:layout_alignParentLeft="true"
-    android:layout_marginTop="50px"
-    android:layout_marginLeft="10px"
-    android:layout_marginRight="10px"
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="fill_parent" 
@@ -26,9 +26,9 @@
 		android:layout_alignParentRight="true"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content" 
-	    android:paddingTop="10px"
+	    android:paddingTop="10dp"
 	    android:textStyle="bold"
-	    android:textSize="18px"
+	    android:textSize="18dp"
 	    android:textColor="#fff"
 	    android:text="@string/username"
     />
@@ -37,18 +37,18 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:hint="@string/unhint"
-		android:layout_marginTop="10px"
-		android:layout_marginLeft="30px"
-		android:layout_marginRight="30px">
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="30dp"
+		android:layout_marginRight="30dp">
 	</EditText>
 	
 	<TextView android:id="@+id/jmbag"
 		android:layout_alignParentRight="true"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content" 
-	    android:paddingTop="10px"
+	    android:paddingTop="10dp"
 	    android:textStyle="bold"
-	    android:textSize="18px"
+	    android:textSize="18dp"
 	    android:textColor="#fff"
 	    android:text="JMBAG"
     />
@@ -57,12 +57,12 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:hint="@string/jmbag"
-		android:layout_marginTop="10px"
-		android:layout_marginLeft="30px"
-		android:layout_marginRight="30px">
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="30dp"
+		android:layout_marginRight="30dp">
 	</EditText>
 	<LinearLayout android:id="@+id/buttonsform"
-    android:layout_marginTop="20px"
+    android:layout_marginTop="20dp"
     android:orientation="horizontal"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
@@ -71,13 +71,13 @@
     		android:text="Sortiraj" 
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
-    	    android:paddingTop="10px">
+    	    android:paddingTop="10dp">
     	</Button>
 		<Button android:id="@+id/results"
 			android:text="Rezultati"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-		    android:paddingTop="10px">
+		    android:paddingTop="10dp">
 		</Button>
     </LinearLayout>
 </LinearLayout>

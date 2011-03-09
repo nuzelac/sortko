@@ -56,20 +56,13 @@ public class SortingActivity extends Activity implements OnClickListener {
 		sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
 		startSort();
 
-		helpVariable = (Button) findViewById(R.id.helpvariable);
-		if (sort.NEEDS_HELP_VARIABLE){
-			helpVariable.setId(2008);
-			helpVariable.setText(" ");
-			helpVariable.setVisibility(View.VISIBLE);
-			helpVariable.setOnClickListener((OnClickListener) this);
-		}
-
 		ImageView changeSort = (ImageView) findViewById(R.id.changeSort);
 		changeSort.setId(3000);
 		changeSort.setOnClickListener((OnClickListener) this);
 
 		list = new ArrayList<Button>();
 		final LinearLayout buttonList = (LinearLayout) findViewById(R.id.buttonlist);
+		final float scale = getBaseContext().getResources().getDisplayMetrics().density;
 
 		for (int i = 0; i < NO_NUMBERS; i++){
 
@@ -81,15 +74,25 @@ public class SortingActivity extends Activity implements OnClickListener {
 			btn.setTextSize((float)26.0);
 			btn.setTextColor(Color.WHITE);
 			btn.setTypeface(Typeface.DEFAULT_BOLD);
-			MarginLayoutParams margin = new MarginLayoutParams(53,53);
-			margin.setMargins(6,0,0,0);
+			MarginLayoutParams margin = new MarginLayoutParams((int) (53 * scale + 0.5f),(int) (53 * scale + 0.5f));
+			margin.setMargins((int) (6 * scale + 0.5f),0,0,0);
 			LayoutParams params = new LayoutParams(margin);
 			btn.setLayoutParams(params);
 			btn.setOnClickListener((OnClickListener) this);
 			buttonList.addView(btn);
 			list.add(btn);
 		}
+		
+		helpVariable = (Button) findViewById(R.id.helpvariable);
 		if (sort.NEEDS_HELP_VARIABLE){
+			helpVariable.setId(2008);
+			helpVariable.setText(" ");
+			helpVariable.setVisibility(View.VISIBLE);
+			helpVariable.setBackgroundResource(R.drawable.normal_button);
+			helpVariable.setTextSize((float)26.0);
+			helpVariable.setTextColor(Color.WHITE);
+			helpVariable.setTypeface(Typeface.DEFAULT_BOLD);
+			helpVariable.setOnClickListener((OnClickListener) this);
 			list.add(helpVariable);
 		}
 		

@@ -12,6 +12,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -46,15 +47,27 @@ public class ResultsActivity extends Activity implements OnClickListener {
         resultTextView.setText(Long.toString(sortingResult));
         
         Button selectSort = (Button) findViewById(R.id.selectsort);
+        
         selectSort.setOnClickListener((View.OnClickListener)this);
+        
         //TODO: dodati da se èita iz storeage-a i šalje na server
         //TODO: dodati da se radi u zasebnoj dretvi
-		String result = getWebService("PohraniRezultat","igrac=igor&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber);
+		sendResult("PohraniRezultat","igrac=igor&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber);
+		refreshResults();
+
+	}
+	private void sendResult(String serviceMethod, String methodParams){
+		new ResultsAsyncTask().execute(serviceMethod, methodParams);
+		
+	}
+	
+	private void refreshResults(){
+		new ResultsAsyncTask().execute("dohvatirezultate","idvrstesorta=1");
+		//new ResultsAsyncTask().execute(serviceMethod, methodParams);
 	}
 	
 	@Override
 	public void onClick(View view){
-		
 		if (view.getId()== R.id.selectsort){
 			selectSort();
 		}
@@ -89,12 +102,13 @@ public class ResultsActivity extends Activity implements OnClickListener {
         }
         catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
         finally {
 	        if (entity!=null)
-	        try {
+	        try{
 	            entity.consumeContent();
-	        } catch (IOException e) {
+	        }
+	        catch (IOException e) {
 	        	
 	        }
         }
