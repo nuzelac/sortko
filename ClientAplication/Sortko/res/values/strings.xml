@@ -7,7 +7,7 @@
 <string name="username">Ime i prezime</string>
 <string name="jmbag">jedinstveni broj igrača</string>
 <string name="unhint">koristi se za prikaz na listi najboljih igrača</string>
-<string name="resultmessage">Ostvareni rezultat je..</string>
+<string name="resultmessage">Ostvareni rezultat:</string>
 <string-array name="sorts"><item>Bubble Sort</item>
 <item>Insertion sort</item>
 
@@ -15,4 +15,10 @@
 <item>Shell sort</item>
 <item>Selection sort</item>
 </string-array>
+<string name="empty_list">Lista se ne može dohvatiti.</string>
+<string name="sortingover">Sortiranje završeno!</string>
+<string name="jmbagDefault">0000000000</string>
+<string name="usernameDefault">Ivan Horvat</string>
+<string name="sortko_prefrences">SortkoPrefsFile</string>
+<string name="sortingFault">&quot;Neispravan korak sortiranja!&quot;</string>
 </resources>

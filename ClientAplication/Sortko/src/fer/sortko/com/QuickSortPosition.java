@@ -38,5 +38,4 @@ public class QuickSortPosition extends AlgorithmPosition{
 			return insertion;
 		}
 	}
-
 }

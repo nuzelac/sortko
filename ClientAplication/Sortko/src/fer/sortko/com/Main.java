@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,8 +12,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Main extends Activity{
+	
+	public static final String SORTKO_PREFS = "SortkoPrefsFile";
+	
+	private String username = "";
+	private String jmbag = "";
+	private EditText usernameedit;
+	private EditText jmbagedit;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,19 +36,42 @@ public class Main extends Activity{
         
         Button results = (Button)findViewById(R.id.results);
         results.setOnClickListener(myListener);
+        
+        usernameedit = (EditText)findViewById(R.id.editusername);
+        jmbagedit = (EditText)findViewById(R.id.editjmbag);
+        
+        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
+
+        username = settings.getString("username",getResources().getString(R.string.usernameDefault));
+        jmbag = settings.getString("jmbag",getResources().getString(R.string.jmbagDefault));
+        
+        if (username != getResources().getString(R.string.usernameDefault)){
+        	usernameedit.setText(username);
+        }
+        if (jmbag != getResources().getString(R.string.usernameDefault)){
+        	jmbagedit.setText(jmbag);
+        }
 	}  
 	
-	//TODO: dodati da se upisuje ime igraca i njegov JMBAG i sprema u bazu
 	private OnClickListener myListener = new OnClickListener() {
 	    public void onClick(View v) {
-	      if (v.getId()==R.id.sortit){
-	    	  selectSort();
-	      } else {
-	    	  Intent resultIntent = new Intent(Main.this,ResultsActivity.class);
-	    	  startActivity(resultIntent);
-	    	  finish();
+	    	savePreferences();
+	    	if (v.getId()==R.id.sortit){
+	    		selectSort();
+	    	} else {
+	    		Intent resultIntent = new Intent(Main.this,ResultsActivity.class);
+	    		startActivity(resultIntent);
+	    		finish();
 	      }
 	    }
+
+		private void savePreferences() {
+		      SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
+		      SharedPreferences.Editor editor = settings.edit();
+		      editor.putString("username", usernameedit.getText().toString());
+		      editor.putString("jmbag", jmbagedit.getText().toString());
+		      editor.commit();
+		}
 	};
 	
 	private void selectSort(){

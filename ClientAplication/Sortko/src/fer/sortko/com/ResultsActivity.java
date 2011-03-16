@@ -1,6 +1,7 @@
 package fer.sortko.com;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -10,27 +11,38 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class ResultsActivity extends Activity implements OnClickListener {
+public class ResultsActivity extends ListActivity implements OnClickListener{
     
+	public static final String SORTKO_PREFS = "SortkoPrefsFile";
+	
 	private long sortingResult = 0;
 	private int sortTypeNumber = 0;
-	//TODO: èitanje i spremanje liste u storage tako da ako nema veze na net da se uèita iz toga
-	//TODO: dodati èitanje liste najboljih rezultata
+	private String username = "";
+	private String jmbag = "";
+	private String methodName;
+	private String methodParams;
+    private ProgressDialog resultsProgressDialog = null;
+    private ArrayList<Result> results = null;
+    private ResultAdapter resultsAdapter;
+    private Runnable viewResults;
+	//TODO: spremanje rezultata u bazu podataka tako da ako nema veze da se može uploadati kasnije
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,27 +55,39 @@ public class ResultsActivity extends Activity implements OnClickListener {
         sortingResult = getIntent().getLongExtra("fer.sortko.com.result", 0);
         sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
         
-        TextView resultTextView = (TextView) findViewById(R.id.result);
-        resultTextView.setText(Long.toString(sortingResult));
-        
-        Button selectSort = (Button) findViewById(R.id.selectsort);
-        
-        selectSort.setOnClickListener((View.OnClickListener)this);
-        
-        //TODO: dodati da se èita iz storeage-a i šalje na server
-        //TODO: dodati da se radi u zasebnoj dretvi
-		sendResult("PohraniRezultat","igrac=igor&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber);
-		refreshResults();
+        if(sortingResult != 0){
+	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
+	        username = settings.getString("username","Ivan Horvat");
+	        jmbag = settings.getString("jmbag", "0000000000");
+	        
+	        //TODO: greška kada username tipa ime + prezime (s razmakom)
+	        //TODO: greška kada nema veze na net
+	        methodName = "PohraniRezultat";
+	        methodParams = "igrac=" + username + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber;
+			//refreshResults();
+        }
+	    TextView resultTextView = (TextView) findViewById(R.id.result);
+	    resultTextView.setText(Long.toString(sortingResult));
 
-	}
-	private void sendResult(String serviceMethod, String methodParams){
-		new ResultsAsyncTask().execute(serviceMethod, methodParams);
-		
-	}
-	
-	private void refreshResults(){
-		new ResultsAsyncTask().execute("dohvatirezultate","idvrstesorta=1");
-		//new ResultsAsyncTask().execute(serviceMethod, methodParams);
+        Button selectSort = (Button) findViewById(R.id.selectsort);
+        selectSort.setOnClickListener((View.OnClickListener)this);
+
+        results = new ArrayList<Result>();
+        this.resultsAdapter = new ResultAdapter(this, R.layout.list_item, results);
+                setListAdapter(this.resultsAdapter);
+        
+        viewResults = new Runnable(){
+            @Override
+            public void run(){
+            	callWebService(methodName,methodParams);
+                getResults();
+            }
+        };
+        
+        Thread thread =  new Thread(null, viewResults, "GetResults");
+        thread.start();
+        resultsProgressDialog = ProgressDialog.show(ResultsActivity.this,    
+              "Prièekajte...", "Dohvaæanje podataka ...", true);        
 	}
 	
 	@Override
@@ -72,6 +96,69 @@ public class ResultsActivity extends Activity implements OnClickListener {
 			selectSort();
 		}
 	}
+	private String callWebService(String methodName, String methodParams){
+		HttpClient client = new DefaultHttpClient();
+    	HttpHost targetHost = new HttpHost("www.sortko.com.hr",80,"http");
+    	HttpGet httpGet = new HttpGet("/sortkoservice.svc/"+methodName+"?"+methodParams);
+    	String result = null;
+        HttpEntity entity = null;
+        try {
+            HttpResponse response = client.execute(targetHost, httpGet);
+            entity = response.getEntity();
+            result = EntityUtils.toString(entity);   
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        } 
+        finally {
+	        if (entity!=null){
+		        try {
+		            entity.consumeContent();
+		        } catch (IOException e) {
+		        	e.printStackTrace();
+		        }
+	        }
+        }        
+        return result;	
+	}
+	
+	private void getResults(){
+        try{
+        	//TODO: dodati èitanje liste najboljih rezultata
+            String result = callWebService("dohvatirezultate","idvrstesorta=0");
+        	Log.i("ServiceCall", result);
+        	
+            results = new ArrayList<Result>();
+            Result r1 = new Result();
+            r1.setResultPlace("1");
+            r1.setResultUser("Ante Barišiæ");
+            r1.setResultNumber("124612");
+            Result r2 = new Result();
+            r2.setResultPlace("2");
+            r2.setResultUser("Ivica Botièki");
+            r2.setResultNumber("114212");
+            results.add(r1);
+            results.add(r2);
+            
+          } catch (Exception e) { 
+        	  Log.e("BACKGROUND_THREAD", e.getMessage());
+          }
+          runOnUiThread(returnResults);
+      }
+	private Runnable returnResults = new Runnable() {
+
+        @Override
+        public void run() {
+            if(results != null && results.size() > 0){
+                resultsAdapter.notifyDataSetChanged();
+                for(int i=0; i<results.size(); i++)
+                	resultsAdapter.add(results.get(i));
+            }
+            resultsProgressDialog.dismiss();
+            resultsAdapter.notifyDataSetChanged();
+        }
+    };
+	
 	private void selectSort(){
 		Resources resources = getResources();
     	final CharSequence[] items = resources.getStringArray(R.array.sorts);
@@ -88,30 +175,4 @@ public class ResultsActivity extends Activity implements OnClickListener {
     	AlertDialog alert = builder.create();
     	alert.show();
 	}
-
-    public String getWebService(String methodName, String methodParams){
-        HttpClient client = new DefaultHttpClient();
-    	HttpHost targetHost = new HttpHost("www.sortko.com.hr",80,"http");
-    	HttpGet httpGet = new HttpGet("/sortkoservice.svc/"+methodName+"?"+methodParams);
-    	String result = null;
-        HttpEntity entity = null;
-        try {
-            HttpResponse response = client.execute(targetHost, httpGet);
-            entity = response.getEntity();
-            result = EntityUtils.toString(entity);   
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-	        if (entity!=null)
-	        try{
-	            entity.consumeContent();
-	        }
-	        catch (IOException e) {
-	        	
-	        }
-        }
-        return result;
-    }
 }

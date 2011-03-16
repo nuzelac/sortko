@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -14,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -62,22 +64,15 @@ public class SortingActivity extends Activity implements OnClickListener {
 
 		list = new ArrayList<Button>();
 		final LinearLayout buttonList = (LinearLayout) findViewById(R.id.buttonlist);
-		final float scale = getBaseContext().getResources().getDisplayMetrics().density;
+		LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		for (int i = 0; i < NO_NUMBERS; i++){
 
 			Button btn = new Button(this);
+            btn = (Button) layoutInflater.inflate(R.layout.button, buttonList, false);
 			btn.setId(2000+i);
 			Integer randomNumber = sort.getNumbersCopy()[i];
 			btn.setText(randomNumber.toString());
-			btn.setBackgroundResource(R.drawable.button);
-			btn.setTextSize((float)26.0);
-			btn.setTextColor(Color.WHITE);
-			btn.setTypeface(Typeface.DEFAULT_BOLD);
-			MarginLayoutParams margin = new MarginLayoutParams((int) (53 * scale + 0.5f),(int) (53 * scale + 0.5f));
-			margin.setMargins((int) (6 * scale + 0.5f),0,0,0);
-			LayoutParams params = new LayoutParams(margin);
-			btn.setLayoutParams(params);
 			btn.setOnClickListener((OnClickListener) this);
 			buttonList.addView(btn);
 			list.add(btn);
@@ -86,7 +81,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		helpVariable = (Button) findViewById(R.id.helpvariable);
 		if (sort.NEEDS_HELP_VARIABLE){
 			helpVariable.setId(2008);
-			helpVariable.setText(" ");
+			helpVariable.setText("0");
 			helpVariable.setVisibility(View.VISIBLE);
 			helpVariable.setOnClickListener((OnClickListener) this);
 			list.add(helpVariable);
@@ -96,7 +91,8 @@ public class SortingActivity extends Activity implements OnClickListener {
 		refreshHelpMessage(ap,ap);
 		
 		if(sort.isFinished(ap)){
-			displayMessage("Algoritam završen");
+			disableButtons();
+			displayMessage(getResources().getString(R.string.sortingover));
 			showResultActivity();
 		}
 	}
@@ -191,8 +187,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 			}
 			else {
 				points -= Algorithm.NEGATIVE_POINTS;
-				//TODO: dodati u resources poruku
-				displayMessage("Niste odabrali dobar korak!");
+				displayMessage(getResources().getString(R.string.sortingFault));
 			}
 			
 			refreshButtons(ap);
@@ -203,12 +198,18 @@ public class SortingActivity extends Activity implements OnClickListener {
 			selectedButton = -1;
 			
 			if(sort.isFinished(sort.findSwitch())){
-				//TODO: ako je algoritam završen odmah onesposobiti tipke, eventualno promjeniti boju
-				//TODO: dodati u resources poruku
-				displayMessage("Algoritam završen!");
+				
+				disableButtons();
+				displayMessage(getResources().getString(R.string.sortingover));
 				showResultActivity();
 			}
 		}
+	}
+	
+	private void disableButtons(){
+		for (int i = 0; i < 8; i++){
+			list.get(i).setBackgroundResource(R.drawable.selected_button);
+		}	
 	}
 	private void refreshHelpMessage(AlgorithmPosition ap, AlgorithmPosition userAp) {
 		String message = ap.getHelpMessage(userAp);

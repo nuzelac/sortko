@@ -14,8 +14,8 @@
 </ImageView>
     
 <LinearLayout android:id="@+id/userdataform"
-    android:layout_alignParentLeft="true"
-    android:layout_marginTop="50dp"
+    android:layout_below="@id/logo"
+    android:layout_marginTop="5dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:orientation="vertical"
@@ -26,17 +26,18 @@
 		android:layout_alignParentRight="true"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content" 
-	    android:paddingTop="10dp"
+	    android:paddingTop="3dp"
 	    android:textStyle="bold"
 	    android:textSize="18dp"
 	    android:textColor="#fff"
 	    android:text="@string/username"
     />
-	<EditText android:id="@+id/EditText01"
+	<EditText android:id="@+id/editusername"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:hint="@string/unhint"
+		android:gravity="center"
 		android:layout_marginTop="10dp"
 		android:layout_marginLeft="30dp"
 		android:layout_marginRight="30dp">
@@ -46,17 +47,18 @@
 		android:layout_alignParentRight="true"
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content" 
-	    android:paddingTop="10dp"
+	    android:paddingTop="3dp"
 	    android:textStyle="bold"
 	    android:textSize="18dp"
 	    android:textColor="#fff"
 	    android:text="JMBAG"
     />
-	<EditText android:id="@+id/EditText02"
+	<EditText android:id="@+id/editjmbag"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:hint="@string/jmbag"
+		android:gravity="center"
 		android:layout_marginTop="10dp"
 		android:layout_marginLeft="30dp"
 		android:layout_marginRight="30dp">
@@ -90,5 +92,4 @@
 		</Button>
     </LinearLayout>
 </LinearLayout>
-
 </RelativeLayout>

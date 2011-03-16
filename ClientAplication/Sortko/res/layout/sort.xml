@@ -64,27 +64,27 @@
 <LinearLayout
     android:id="@+id/buttonlist"
     android:layout_alignParentLeft="true"
-    android:layout_marginTop="200dp"
-    android:layout_marginLeft="5dp"
+    android:layout_marginTop="185dp"
+    android:layout_marginLeft="0dp"
     android:layout_marginRight="5dp"
     android:orientation="horizontal"
     android:gravity="center_horizontal"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    >
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
 </LinearLayout>
 
 <Button android:id="@+id/helpvariable"
-	android:layout_below = "@+id/buttonlist"
-	android:layout_alignParentRight = "true"
+	android:text="0"
+	android:layout_below="@+id/buttonlist"
+	android:layout_alignParentRight="true"
 	android:layout_width="wrap_content" 
     android:layout_height="wrap_content"
 	android:background="@drawable/button"
 	android:visibility="invisible"
-	android:textSize="26dp"
+	android:textSize="24dp"
 	android:textStyle ="bold"
 	android:textColor="#ffffff"
-	android:layout_margin ="15dp">
+	android:layout_margin ="12dp">
 </Button>
 
 </RelativeLayout>

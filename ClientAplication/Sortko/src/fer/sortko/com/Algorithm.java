@@ -38,10 +38,10 @@ public abstract class Algorithm {
 		else return 0;
 	}
 	private long calculatePoints(){
-		// TODO: razmisliti i preurediti
+		// TODO: dodati da kao parametar uzima najduži period za uspješan potez i brainstormati ostale promjene
 		// 10000 * 1/1.5^(x) + 1000
-		// preinaèiti da svaki algoritam može maximalno 999 999 / 6 osvojiti
-		// i to ukoliko ima maximalni moguæi broj promjena
+		// preinaèiti da svaki algoritam može maximalno 999 999 / 6 osvojiti i to ukoliko ima maximalni moguæi broj promjena
+		// 
 		
 		Time currentTime = new Time();
 		currentTime.setToNow();
