@@ -1,6 +1,7 @@
 package fer.sortko.com;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -42,7 +43,6 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
     private ResultAdapter resultsAdapter;
     private Runnable viewResults;
 	//TODO: spremanje rezultata u bazu podataka tako da ako nema veze da se može uploadati kasnije
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +61,24 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	        jmbag = settings.getString("jmbag", "0000000000");
 	        
 	        //TODO: greška kada username tipa ime + prezime (s razmakom)
-	        //TODO: greška kada nema veze na net
+	        
 	        methodName = "PohraniRezultat";
-	        methodParams = "igrac=" + username + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber;
-			//refreshResults();
+	        
+			
+	        try {
+	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&jmbag=" + URLEncoder.encode(jmbag,"UTF-8") + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber; 
+	        }
+	        catch (Exception e){
+	        	Log.e("URLEncoder", e.getMessage());
+	        }
+	        Log.i("TEST", methodParams);
         }
 	    TextView resultTextView = (TextView) findViewById(R.id.result);
 	    resultTextView.setText(Long.toString(sortingResult));
 
         Button selectSort = (Button) findViewById(R.id.selectsort);
         selectSort.setOnClickListener((View.OnClickListener)this);
-
+        
         results = new ArrayList<Result>();
         this.resultsAdapter = new ResultAdapter(this, R.layout.list_item, results);
                 setListAdapter(this.resultsAdapter);
@@ -80,9 +87,11 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
             @Override
             public void run(){
             	callWebService(methodName,methodParams);
-                getResults();
+                getResults(sortTypeNumber);
             }
         };
+        
+        //TODO: greška kada nema veze na net, if ima konekcije radi ovo dalje, inaèe ništa
         
         Thread thread =  new Thread(null, viewResults, "GetResults");
         thread.start();
@@ -122,31 +131,31 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         return result;	
 	}
 	
-	private void getResults(){
-        try{
-        	//TODO: dodati èitanje liste najboljih rezultata
-            String result = callWebService("dohvatirezultate","idvrstesorta=0");
-        	Log.i("ServiceCall", result);
+	private void getResults(int idVrsteSorta){
+		try{
+			String result = callWebService("dohvatirezultate","idvrstesorta=" + Integer.toString(idVrsteSorta));
         	
+            String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",20);
+            // header == <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+            // result == MarkoMarulic§139909&#xD;
+            // footer == </string>
+            int resultNumber = 0;
             results = new ArrayList<Result>();
-            Result r1 = new Result();
-            r1.setResultPlace("1");
-            r1.setResultUser("Ante Barišiæ");
-            r1.setResultNumber("124612");
-            Result r2 = new Result();
-            r2.setResultPlace("2");
-            r2.setResultUser("Ivica Botièki");
-            r2.setResultNumber("114212");
-            results.add(r1);
-            results.add(r2);
-            
-          } catch (Exception e) { 
-        	  Log.e("BACKGROUND_THREAD", e.getMessage());
-          }
-          runOnUiThread(returnResults);
-      }
+            for (String item : items) {
+            	
+                Result r = new Result();
+                r.setResultPlace(Integer.toString(++resultNumber)+".");
+            	r.setResultUser(item.substring(0, item.indexOf("§")).trim());
+            	r.setResultNumber(item.substring(item.indexOf("§")+1));
+            	Log.i("ITEM", r.getResultPlace()+" "+r.getResultUser()+" "+r.getResultNumber());
+            	results.add(r);
+            }
+		}catch (Exception e) { 
+			e.printStackTrace();
+		}
+		runOnUiThread(returnResults);
+	}
 	private Runnable returnResults = new Runnable() {
-
         @Override
         public void run() {
             if(results != null && results.size() > 0){
