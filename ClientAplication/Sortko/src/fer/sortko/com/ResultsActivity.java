@@ -60,10 +60,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	        username = settings.getString("username","Ivan Horvat");
 	        jmbag = settings.getString("jmbag", "0000000000");
 	        
-	        //TODO: greška kada username tipa ime + prezime (s razmakom)
-	        
 	        methodName = "PohraniRezultat";
-	        
 			
 	        try {
 	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&jmbag=" + URLEncoder.encode(jmbag,"UTF-8") + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber; 
