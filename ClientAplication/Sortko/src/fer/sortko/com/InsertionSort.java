@@ -48,7 +48,9 @@ public class InsertionSort extends Algorithm {
 			positionReturned = true;
 		}
 		if(!positionReturned){
-			this.lastChangePosition = new InsertionSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex);
+			this.lastChangePosition.setAlgorithmIndexI(i);
+			this.lastChangePosition.setAlgorithmIndexJ(j);
+			this.lastChangePosition.setHelpVariable(this.help);
 		}
 	}
 }

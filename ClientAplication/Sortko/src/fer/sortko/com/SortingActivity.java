@@ -11,8 +11,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,13 +18,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
 
 public class SortingActivity extends Activity implements OnClickListener {
 	private long points = 0;
@@ -88,7 +84,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		}
 		
 		AlgorithmPosition ap = sort.findSwitch();
-		refreshHelpMessage(ap,ap);
+		refreshHelpMessage(ap,null,true);
 		
 		if(sort.isFinished(ap)){
 			disableButtons();
@@ -172,47 +168,63 @@ public class SortingActivity extends Activity implements OnClickListener {
 			list.get(buttonNumber).setBackgroundResource(R.drawable.selected_button);
 		}
 		else if (selectedButton == buttonNumber){
+			if (ap.getAlgorithmIndexI() == ap.getAlgorithmIndexJ()){
+				goToNextAlgStepUpdateUI(buttonNumber);
+			}
 			selectedButton = -1;
 			list.get(buttonNumber).setBackgroundResource(R.drawable.button);
+
 		}
 		else {
-			// pokušaj zamjeniti brojeve, ako uspije vraæa bodove
-			AlgorithmPosition userAlgorithmPosition = new AlgorithmPosition(selectedButton, buttonNumber, null);
-			long newPoints = sort.goToNextPosition(userAlgorithmPosition);
-			
-			ap = sort.findSwitch();
-
-			if(newPoints > 0){
-				points += newPoints;
-			}
-			else {
-				points -= Algorithm.NEGATIVE_POINTS;
-				displayMessage(getResources().getString(R.string.sortingFault));
-			}
-			
-			refreshButtons(ap);
-			refreshHelpMessage(ap, userAlgorithmPosition);
-			
-			list.get(buttonNumber).setBackgroundResource(R.drawable.button);
-			list.get(selectedButton).setBackgroundResource(R.drawable.button);
-			selectedButton = -1;
-			
-			if(sort.isFinished(sort.findSwitch())){
-				
-				disableButtons();
-				displayMessage(getResources().getString(R.string.sortingover));
-				showResultActivity();
-			}
+			// pokušaj zamjeniti brojeve, ako uspije vraæa bodove i updejta UI
+			goToNextAlgStepUpdateUI(buttonNumber);
 		}
 	}
 	
+	private void goToNextAlgStepUpdateUI(int buttonNumber) {
+		AlgorithmPosition ap;
+		AlgorithmPosition userAlgorithmPosition = new AlgorithmPosition(selectedButton, buttonNumber, null);
+		long newPoints = sort.goToNextPosition(userAlgorithmPosition);
+		
+		ap = sort.findSwitch();
+
+		boolean isSwitchSuccessful = false;
+		
+		if(newPoints > 0){
+			isSwitchSuccessful = true;
+			points += newPoints;
+		}
+		else {
+			points -= Algorithm.NEGATIVE_POINTS;
+			displayMessage(getResources().getString(R.string.sortingFault));
+		}
+		
+		refreshButtons(ap);
+		refreshHelpMessage(ap, userAlgorithmPosition, isSwitchSuccessful);
+		
+		list.get(buttonNumber).setBackgroundResource(R.drawable.button);
+		list.get(selectedButton).setBackgroundResource(R.drawable.button);
+		selectedButton = -1;
+		
+		if(sort.isFinished(sort.findSwitch())){
+			
+			disableButtons();
+			disableHelpMessage();
+			displayMessage(getResources().getString(R.string.sortingover));
+			showResultActivity();
+		}
+	}
+	
+	private void disableHelpMessage() {
+		this.sortHelpMessage.setVisibility(TextView.INVISIBLE);
+	}
 	private void disableButtons(){
 		for (int i = 0; i < 8; i++){
 			list.get(i).setBackgroundResource(R.drawable.selected_button);
 		}	
 	}
-	private void refreshHelpMessage(AlgorithmPosition ap, AlgorithmPosition userAp) {
-		String message = ap.getHelpMessage(userAp);
+	private void refreshHelpMessage(AlgorithmPosition ap, AlgorithmPosition userAP, boolean isSwitchSuccessful) {
+		String message = ap.getHelpMessage(userAP, isSwitchSuccessful);
 		this.sortHelpMessage.setText(message);
 	}
 	private void refreshButtons(AlgorithmPosition ap) {

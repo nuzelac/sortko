@@ -32,7 +32,7 @@ public class ShellSort extends Algorithm{
 
 		for (korak = N / 2; korak > 0; korak /= 2) {
 			for (i = korak; i < N; i++) {
-				SetAlgorithmPosition(i, 8, i, korak, ShellPosition.stepStart);
+				SetAlgorithmPosition(i, helpVariableIndex, i, korak, ShellPosition.stepStart);
 				help = A [i];
 				
 				for (j = i; j >= korak && A[j-korak] > help; j -= korak) {
@@ -40,7 +40,7 @@ public class ShellSort extends Algorithm{
 					A [j] = A [j - korak];
 				}
 				
-				SetAlgorithmPosition(8, j, i, korak, ShellPosition.stepReturn);
+				SetAlgorithmPosition(helpVariableIndex, j, i, korak, ShellPosition.stepReturn);
 				A [j] = help;
 			}
 		}

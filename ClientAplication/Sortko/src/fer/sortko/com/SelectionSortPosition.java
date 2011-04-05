@@ -7,7 +7,7 @@ package fer.sortko.com;
  */
 
 public class SelectionSortPosition extends AlgorithmPosition{
-	private static boolean checkOrder = true;
+	private static boolean checkOrder = false;
 	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
 	
@@ -17,8 +17,19 @@ public class SelectionSortPosition extends AlgorithmPosition{
 	}
 	
 	@Override
-	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition){
+	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
+		String sortStartMessage = "Zapoèni algoritam tako postaviš najmanji element na prvo mjesto polja, sljedeæi najmanji na drugo mjesto i tako dalje.";
 		String mainMessage = "Zamjeni najmanji element polja desno od "+ (this.outerLoopIndex + 1) +". elementa s "+ (this.outerLoopIndex + 1) +". elementom.";		
-		return mainMessage;
+		String errorMessage = "Polje je sortirano do "+ (this.outerLoopIndex + 1) +". elementa." + mainMessage;
+		
+		if (userAlgorithmPosition == null){
+			return sortStartMessage;
+		}
+		else if (isSwitchSuccessful){
+			return mainMessage;
+		}
+		else {
+			return errorMessage;
+		}
 	}
 }

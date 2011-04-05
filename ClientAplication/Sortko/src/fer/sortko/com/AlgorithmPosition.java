@@ -14,7 +14,11 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 		this.currentNumbersList = currentNumbersList;
 	}
 	
-	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition){
+	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
+		//TODO: Staviti u resources
+		// if (userAP == null) poèetak sortiranja - ispisati poèetnu poruku
+		// if (isSwitchSuccessful) ispisati poruku za sljedeæi potez
+		// else pokušati otkriti u èemu je greška
 		return "Base class message!";
 	}
 

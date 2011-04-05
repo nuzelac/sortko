@@ -1,5 +1,7 @@
 package fer.sortko.com;
 
+import fer.sortko.com.QuickSort.QsPosition;
+
 /*
 Quicksort
 1.	Izraèunajte medijan od 1. elementa, (lijevog) srednjeg  i 8. tako da najprije usporedite 1. i srednji i zatim 1. i 8..
@@ -12,30 +14,88 @@ public class QuickSortPosition extends AlgorithmPosition{
 	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
 	private QuickSort.QsPosition qsPosition;
+	private QuickSort.QsPosition previousQsPosition;
+	private int lijevo = 0;
+	private int desno = 0;
 	
-	public QuickSortPosition(int i, int j, int[] currentNumbersList, boolean checkOrder, int help, QuickSort.QsPosition qsPosition){
+	public QuickSortPosition(int i, int j, int[] currentNumbersList, boolean checkOrder, int help, QuickSort.QsPosition qsPosition, int lijevo, int desno, QuickSort.QsPosition previousQsposition){
 		super(i, j, currentNumbersList, checkOrder, help);
-		this.qsPosition = qsPosition;
+		this.setQsPosition(qsPosition);
+		this.setPreviousQsPosition(previousQsPosition);
+		this.lijevo = lijevo;
+		this.desno = desno;
 	}
 	
 	@Override
-	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition){
-		String median = "Izraèunajte medijan od 1. elementa, (lijevog) srednjeg  i 8. tako da najprije usporedite 1. i srednji i zatim 1. i 8..";
-		String hidden = "Sakrijte stožer.";
-		String regularqs = "Pronaðite prvi broj veæi od stožera tako da krenete u desno od elementa na poziciji x. Pronaðite i prvi broj manji od stožera gledano lijevo od elementa na poziciji y. Zamjenite pronaðene brojeve po potrebi ili vratite stožer.";
-		String insertion = "Sortirajte podniz (od 1. do 7. elementa) prema Insertion sort algoritmu.";
+	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
+		String sortStartMessage = "Zapoènite algoritam raèunajuæi medijan od 1., 4. i 8. elementa tako da ih usporedite i po potrebi zamijenite.";
+		String median = "Izraèunajte medijan od "+(lijevo+1)+". elementa, (lijevog) srednjeg  i " + (desno+1) + ". elementa tako da ih usporedite i po potrebi zamijenite.";
+		String hidden = "Sakrijte stožer na predzadnju poziciju.";//dodati poruku (promatramo polje od tog do tog elementa)
+		String regularQs = "Pronaðite broj veæi ili jednak stožeru gledano na desno od "+ (lijevo + 1) +". elementa."
+							+" Pronaðite broj manji ili jednak stožeru na lijevo od "+ desno +". elementa."
+							+" Napravite zamjenu ili vratite stožer.";
+		String returnSt = "Vratite stožer. ("+desno+". element)";
+		String insertion = "Sortirajte podniz od "+(lijevo+1)+". do "+(desno+1)+". elementa prema Insertion sort algoritmu.";
 		
-		if (this.qsPosition == QuickSort.QsPosition.median){
-			return median;
+		if (userAlgorithmPosition == null){
+			return sortStartMessage;
 		}
-		else if (this.qsPosition == QuickSort.QsPosition.hidden){
-			return hidden;
+		else {
+			switch(this.qsPosition){
+				case start:
+					return sortStartMessage;
+				case median12 :
+					if (!isSwitchSuccessful){
+						return median + " (prvi i srednji element)";
+					} else return median;
+				case median13 :
+					if (!isSwitchSuccessful){
+						return median + " (prvi i zadnji element)";
+					} else return median;
+				case median23 :
+					if (!isSwitchSuccessful){
+						return median + " (srednji i zadnji element)";
+					} else return median;
+				case hidden :
+					if (!isSwitchSuccessful){
+						return hidden + " (zamjenite ga s "+desno+". elementom)";
+					} else return hidden;
+				case insertion:
+					return insertion;
+				case regularQs:
+					if (this.previousQsPosition == QsPosition.regularQs){
+						return "Nastavite dalje. " + regularQs;
+					} else {
+						return regularQs;
+					}
+				default:
+					if (!isSwitchSuccessful){
+					return returnSt;
+					}
+					else{
+						if (this.previousQsPosition == QsPosition.regularQs){
+							return returnSt;
+						} else {
+							return regularQs;
+						}
+					}
+		    }
 		}
-		else if (this.qsPosition == QuickSort.QsPosition.insertion){
-			return regularqs;
-		}
-		else{//(this.qsPosition == QuickSort.QsPosition.regularqs)
-			return insertion;
-		}
+	}
+
+	private void setQsPosition(QuickSort.QsPosition qsPosition) {
+		this.qsPosition = qsPosition;
+	}
+
+	public QuickSort.QsPosition getQsPosition() {
+		return qsPosition;
+	}
+
+	private void setPreviousQsPosition(QuickSort.QsPosition previousQsPosition) {
+		this.previousQsPosition = previousQsPosition;
+	}
+
+	public QuickSort.QsPosition getPreviousQsPosition() {
+		return previousQsPosition;
 	}
 }

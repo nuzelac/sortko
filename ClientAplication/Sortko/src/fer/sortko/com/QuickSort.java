@@ -1,16 +1,15 @@
 package fer.sortko.com;
 
 public class QuickSort extends Algorithm {
+	private static int helpVariableIndex = 8;
 	private QuickSortPosition lastChangePosition = null;
 	private QuickSortPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
 	private static boolean checkOrder = true;
-	private boolean positionChanged = false;
+	private boolean positionReturned = false;
 	private static int cutoff = 3;
 	private int[] A = null;
 	int switchCount = 0;
-
-
 	
 	public QuickSort (int numberOfElements){
 		super(numberOfElements);
@@ -20,24 +19,27 @@ public class QuickSort extends Algorithm {
 	public AlgorithmPosition findSwitch(){
 		A = super.getNumbersCopy();
 		this.help = 0;
-		positionChanged = false;
+		positionReturned = false;
 		switchCount = 0;
-		positionToReturn = new QuickSortPosition(0, 0, A, false, 0, QsPosition.median);
+		positionToReturn = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start);
+		lastChangePosition = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start);
 		
 		QSort (0, N - 1);
-
 		return positionToReturn;
 	}
 	
-	private void setAlgorithmPosition(int i,int j, boolean checkOrder, QsPosition qsPosition){
+	private void setAlgorithmPosition(int i,int j, boolean checkOrder, QsPosition qsPosition, int lijevo, int desno){
 		switchCount++;
-		if (super.switchNumber == switchCount && !positionChanged){			
-			this.positionToReturn = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition);
-			positionChanged = true;
+		if (super.switchNumber == switchCount && !positionReturned){			
+			this.positionToReturn = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, lastChangePosition.getQsPosition());
+			positionReturned = true;
+		}
+		if(!positionReturned){
+			this.lastChangePosition = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, null);
 		}
 	}
 
-	private void QSort (int lijevo, int desno) {
+	private void QSort (int lijevo, int desno){
 		int i, j;
 		int stozer;
 		if (lijevo + cutoff <= desno) {
@@ -47,15 +49,15 @@ public class QuickSort extends Algorithm {
 				while (A[++i] < stozer);
 				while (A[--j] > stozer);
 				if (i < j){
-					setAlgorithmPosition(i, j, false, QsPosition.regularqs);
+					setAlgorithmPosition(i, j, false, QsPosition.regularQs, lijevo, desno);
 					Zamijeni(i, j);
 				}
 				else {
 					break;
 				}
-			} 
-			// obnovi stozer, zamjena
-			setAlgorithmPosition(i, desno - 1, false, QsPosition.regularqs);
+			}
+			//TODO: Problem kada vraæa na samoga sebe?
+			setAlgorithmPosition(i, desno - 1, false, QsPosition.returnSt, lijevo, desno);
 			Zamijeni (i, desno - 1);
 			
 			QSort (lijevo, i - 1);
@@ -68,20 +70,19 @@ public class QuickSort extends Algorithm {
 	private int Medijan3(int lijevo, int desno){
 		int sredina = (lijevo + desno) / 2;
 		if (A [lijevo] > A  [sredina]){
-			setAlgorithmPosition(lijevo, sredina, false,QsPosition.median);
+			setAlgorithmPosition(lijevo, sredina, false,QsPosition.median12, lijevo, desno);
 			Zamijeni (lijevo, sredina);
 		}
 		if (A [lijevo] > A [desno]){
-			setAlgorithmPosition(lijevo, desno, false, QsPosition.median);
+			setAlgorithmPosition(lijevo, desno, false, QsPosition.median13, lijevo, desno);
 			Zamijeni (lijevo, desno);
 		}
 		if (A [sredina] > A [desno]){
-			setAlgorithmPosition(sredina, desno, false, QsPosition.median);
+			setAlgorithmPosition(sredina, desno, false, QsPosition.median23, lijevo, desno);
 			Zamijeni(sredina, desno);
 		}
-		// Sada je: A[lijevo]<=A[sredina]<=A[desno]
-		// Sakrij stozer
-		setAlgorithmPosition(sredina, desno-1, false, QsPosition.hidden);
+
+		setAlgorithmPosition(sredina, desno-1, false, QsPosition.hidden, lijevo, desno);
 		Zamijeni (sredina, desno-1);
 		return A[desno - 1];
 	}
@@ -89,16 +90,14 @@ public class QuickSort extends Algorithm {
 	private void InsertionSort(int lijevo, int desno){
 		int N = desno - lijevo + 1; 
 		for (int i = 1 + lijevo; i < N + lijevo; i++){
-			// 8 oznaka za pomocnu varijablu, hardkodirano
-			setAlgorithmPosition(i, 8, checkOrder,QsPosition.insertion);
+			setAlgorithmPosition(i,helpVariableIndex, checkOrder,QsPosition.insertion, lijevo, desno);
 			this.help = A[i];
-
 			int j;
 			for (j = i; j >= 1 && A[j-1] > help; j--){
-				setAlgorithmPosition(j-1, j, checkOrder,QsPosition.insertion);
+				setAlgorithmPosition(j-1, j, checkOrder,QsPosition.insertion, lijevo, desno);
 				A[j] = A[j-1];
 			}
-			setAlgorithmPosition(8, j, checkOrder,QsPosition.insertion);
+			setAlgorithmPosition(helpVariableIndex, j, checkOrder,QsPosition.insertion, lijevo, desno);
 			A[j] = help;
 		}
 	}
@@ -109,6 +108,6 @@ public class QuickSort extends Algorithm {
 	}
 	
 	public enum QsPosition {
-		median,hidden,regularqs,insertion
+		start, median12, median13, median23, hidden, regularQs, returnSt,insertion
 	}
 }
