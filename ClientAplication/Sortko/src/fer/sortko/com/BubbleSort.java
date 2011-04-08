@@ -3,6 +3,7 @@ package fer.sortko.com;
 public class BubbleSort extends Algorithm{
 	private BubbleSortPosition lastChangePosition = null;
 	private BubbleSortPosition positionToReturn = null;
+	private static int algorithmDifficulty = 1;
 	private int switchCount = 0;
 	private Boolean positionReturned = false;
 	private int N = super.getNumbersCopy().length;
@@ -44,5 +45,10 @@ public class BubbleSort extends Algorithm{
 		if(!positionReturned){
 			this.lastChangePosition = new BubbleSortPosition(i, j, A.clone(), outerLoopIndex);
 		}
+	}
+
+	@Override
+	public int getAlgorithmDifficulty() {
+		return algorithmDifficulty;
 	}
 }

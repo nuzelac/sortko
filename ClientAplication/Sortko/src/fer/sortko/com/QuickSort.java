@@ -6,6 +6,7 @@ public class QuickSort extends Algorithm {
 	private QuickSortPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
 	private static boolean checkOrder = true;
+	private static int algorithmDifficulty = 5;
 	private boolean positionReturned = false;
 	private static int cutoff = 3;
 	private int[] A = null;
@@ -105,6 +106,10 @@ public class QuickSort extends Algorithm {
 		int pom = A[indexLijevo];
 		A[indexLijevo] = A[indexDesno];
 		A[indexDesno] = pom;
+	}
+	@Override
+	public int getAlgorithmDifficulty() {
+		return algorithmDifficulty;
 	}
 	
 	public enum QsPosition {

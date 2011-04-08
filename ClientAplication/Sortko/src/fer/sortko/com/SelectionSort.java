@@ -6,6 +6,7 @@ public class SelectionSort extends Algorithm {
 	private AlgorithmPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
 	private static int helpVariableIndex = 8;
+	private static int algorithmDifficulty = 2;
 	private boolean positionReturned = false;
 	private int switchCount = 0;
 	private int[] A = null;
@@ -55,5 +56,9 @@ public class SelectionSort extends Algorithm {
 		if(!positionReturned){
 			this.lastChangePosition = new SelectionSortPosition(i, j, this.A.clone());
 		}
+	}
+	@Override
+	public int getAlgorithmDifficulty() {
+		return algorithmDifficulty;
 	}
 }

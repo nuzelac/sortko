@@ -5,22 +5,31 @@ import java.util.Random;
 import android.text.format.Time;
 
 public abstract class Algorithm {
-	// *shell, *bubble, *insertion, *selection, merge, quick
 	private int[] numbers;
 	public int help;
 	int switchNumber = 1;
 	int numberOfElements = 0;
 	public static int NEGATIVE_POINTS = 1000;
 	public boolean NEEDS_HELP_VARIABLE = false;
-	private Time switchTime = new Time();
+	private boolean addBonus = true;
+	private boolean speedBonus = true;
+	private int switchAttempt = 0;
+
+	private double algorithmDifficulty = 1;
+	private Time lastSwitchTime = new Time();
+	private Time startTime = new Time();
 
 	public Algorithm(int numberOfElements) {
 		this.setNumbers(randomList(numberOfElements));
 		this.numberOfElements = numberOfElements;
-		this.switchTime.setToNow();
+		this.startTime.setToNow();
+		this.lastSwitchTime.setToNow();
+		this.algorithmDifficulty = (double)getAlgorithmDifficulty();
 		
 	}
 	public abstract AlgorithmPosition findSwitch();
+	
+	public abstract int getAlgorithmDifficulty();
 	
 	public boolean isNextPosition(AlgorithmPosition positionToCheck){
 		return findSwitch().equals(positionToCheck);
@@ -33,23 +42,44 @@ public abstract class Algorithm {
 		
 		if(isNextPosition(userPosition)){
 			switchNumber++;
+			switchAttempt++;
 			return calculatePoints();
 		}
-		else return 0;
+		else {
+			switchAttempt++;
+			return 0;
+		}
 	}
 	private long calculatePoints(){
 		// TODO: dodati da kao parametar uzima najduži period za uspješan potez i brainstormati ostale promjene
-		// 10000 * 1/1.5^(x) + 1000
-		// preinaèiti da svaki algoritam može maximalno 999 999 / 6 osvojiti i to ukoliko ima maximalni moguæi broj promjena
-		// 
 		
 		Time currentTime = new Time();
 		currentTime.setToNow();
-		double sec =  (currentTime.toMillis(true) - switchTime.toMillis(true))/1000;
-    	switchTime.setToNow();
-		double x = 1000 + 10000 * 1./Math.pow(1.5,sec);
-
-    	return (long)Math.floor(x);		
+		
+		double gameDuration = (currentTime.toMillis(true) - startTime.toMillis(true))/1000;
+		
+		if (gameDuration > (15 * algorithmDifficulty)){
+			addBonus = false;
+		}
+		
+		double switchDuration =  (currentTime.toMillis(true) - lastSwitchTime.toMillis(true))/1000;
+		
+		if (switchDuration > 10){
+			algorithmDifficulty *= 0.9;
+		}
+		
+    	double points = algorithmDifficulty * 1000;
+    	
+    	if (addBonus){
+    		points += points * 10 + algorithmDifficulty * 1./Math.pow(1.5,switchDuration);
+    	}
+    	
+    	points = points / switchAttempt;
+    	
+    	lastSwitchTime.setToNow();
+    	this.switchAttempt = 0;
+    	
+    	return (long)Math.floor(points);	
 	}
 	protected void setNumbers(int[] numbers) {
 		this.numbers = numbers;
@@ -62,7 +92,6 @@ public abstract class Algorithm {
 		return a;
 	}
 	private int[] randomList(int numberOfElements){
-		//TODO: generirati bar 4 zamjene
 		int generatedNumbersCount = 0;
 		int number;
     	Random randomGenerator = new Random();

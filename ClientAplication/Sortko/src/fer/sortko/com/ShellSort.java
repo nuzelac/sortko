@@ -4,7 +4,8 @@ public class ShellSort extends Algorithm{
 	private AlgorithmPosition lastChangePosition = null;
 	private AlgorithmPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
-	private static int helpVariableIndex = 8; 
+	private static int helpVariableIndex = 8;
+	private static int algorithmDifficulty = 1;
 	private boolean positionReturned = false;
 	private static boolean checkOrder = true;
 	private int switchCount = 0;
@@ -56,6 +57,10 @@ public class ShellSort extends Algorithm{
 		if(!positionReturned){
 			this.lastChangePosition = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp);
 		}
+	}
+	@Override
+	public int getAlgorithmDifficulty() {
+		return algorithmDifficulty;
 	}
 	public enum ShellPosition {
 		stepStart, stepCompare, stepReturn

@@ -196,6 +196,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		}
 		else {
 			points -= Algorithm.NEGATIVE_POINTS;
+			//TODO: dodati da negativne bodove raèuna algoritam (10-20% ovisno o algoritmu)
 			displayMessage(getResources().getString(R.string.sortingFault));
 		}
 		

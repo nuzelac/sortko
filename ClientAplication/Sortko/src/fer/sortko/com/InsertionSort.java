@@ -6,6 +6,7 @@ public class InsertionSort extends Algorithm {
 	private AlgorithmPosition positionToReturn = null;
 	private static int helpVariableIndex = 8; 
 	private boolean positionReturned = false;
+	private static int algorithmDifficulty = 1;
 	private int switchCount = 0;
 	private int[] A = null;
 	private int i = 0;
@@ -52,5 +53,9 @@ public class InsertionSort extends Algorithm {
 			this.lastChangePosition.setAlgorithmIndexJ(j);
 			this.lastChangePosition.setHelpVariable(this.help);
 		}
+	}
+	@Override
+	public int getAlgorithmDifficulty() {
+		return algorithmDifficulty;
 	}
 }
