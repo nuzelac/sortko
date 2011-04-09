@@ -19,6 +19,7 @@ public final class R {
         public static final int icon=0x7f020002;
         public static final int selected_button=0x7f020003;
         public static final int sortko=0x7f020004;
+        public static final int total=0x7f020005;
     }
     public static final class id {
         public static final int buttonlist=0x7f060015;

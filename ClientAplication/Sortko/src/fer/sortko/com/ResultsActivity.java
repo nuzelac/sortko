@@ -20,12 +20,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ResultsActivity extends ListActivity implements OnClickListener{
@@ -53,7 +56,9 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         setContentView(R.layout.result);
         
         sortingResult = getIntent().getLongExtra("fer.sortko.com.result", 0);
-        sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
+        sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", -1);
+        
+        
         
         if(sortingResult != 0){
 	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
@@ -70,6 +75,19 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	        }
 	        Log.i("TEST", methodParams);
         }
+        
+        TextView listTitle = (TextView) findViewById(R.id.listtitle);
+        ImageView changeList = (ImageView) findViewById(R.id.changeList);
+        changeList.setVisibility(4);
+		changeList.setOnClickListener((OnClickListener) this);
+        
+        if(sortTypeNumber != -1){
+    		Resources resources = getResources();
+    		final CharSequence[] items = resources.getStringArray(R.array.sorts);
+    		listTitle.setText(items[sortTypeNumber]);
+    		changeList.setVisibility(0);
+        }
+        
 	    TextView resultTextView = (TextView) findViewById(R.id.result);
 	    resultTextView.setText(Long.toString(sortingResult));
 
@@ -78,7 +96,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         
         results = new ArrayList<Result>();
         this.resultsAdapter = new ResultAdapter(this, R.layout.list_item, results);
-                setListAdapter(this.resultsAdapter);
+        setListAdapter(this.resultsAdapter);
         
         viewResults = new Runnable(){
             @Override
@@ -87,8 +105,6 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
                 getResults(sortTypeNumber);
             }
         };
-        
-        //TODO: greška kada nema veze na net, if ima konekcije radi ovo dalje, inaèe ništa
         
         Thread thread =  new Thread(null, viewResults, "GetResults");
         thread.start();
@@ -101,7 +117,50 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 		if (view.getId()== R.id.selectsort){
 			selectSort();
 		}
+		else if (view.getId() == R.id.changeList){
+			changeList();
+		}
 	}
+
+	private void getResults(int idVrsteSorta){
+		try{
+			String result = callWebService("dohvatirezultate","idvrstesorta=" + Integer.toString(idVrsteSorta));
+        	
+            String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",21);
+            // header == <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+            // result == MarkoMarulic§139909&#xD;
+            // footer == </string>
+            int resultNumber = 0;
+            results = new ArrayList<Result>();
+            for (String item : items) {
+            	
+                Result r = new Result();
+                r.setResultPlace(Integer.toString(++resultNumber)+".");
+            	r.setResultUser(item.substring(0, item.indexOf("§")).trim());
+            	r.setResultNumber(item.substring(item.indexOf("§")+1));
+            	results.add(r);
+            }
+		}catch (Exception e) { 
+			e.printStackTrace();
+		}
+		runOnUiThread(returnResults);
+	}
+	
+	private Runnable returnResults = new Runnable() {
+        @Override
+        public void run() {
+        	resultsAdapter.clear();
+            if(results != null && results.size() > 0){
+                resultsAdapter.notifyDataSetChanged();
+                //TODO: otkriti zašto zadnji èudno ispisuje i maknuti onda ovaj "results.size()-1"
+                for(int i=0; i < results.size()-1; i++)
+                	resultsAdapter.add(results.get(i));
+            }
+            resultsProgressDialog.dismiss();
+            resultsAdapter.notifyDataSetChanged();
+        }
+    };
+	
 	private String callWebService(String methodName, String methodParams){
 		HttpClient client = new DefaultHttpClient();
     	HttpHost targetHost = new HttpHost("www.sortko.com.hr",80,"http");
@@ -127,44 +186,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         }        
         return result;	
 	}
-	
-	private void getResults(int idVrsteSorta){
-		try{
-			String result = callWebService("dohvatirezultate","idvrstesorta=" + Integer.toString(idVrsteSorta));
-        	
-            String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",20);
-            // header == <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-            // result == MarkoMarulic§139909&#xD;
-            // footer == </string>
-            int resultNumber = 0;
-            results = new ArrayList<Result>();
-            for (String item : items) {
-            	
-                Result r = new Result();
-                r.setResultPlace(Integer.toString(++resultNumber)+".");
-            	r.setResultUser(item.substring(0, item.indexOf("§")).trim());
-            	r.setResultNumber(item.substring(item.indexOf("§")+1));
-            	Log.i("ITEM", r.getResultPlace()+" "+r.getResultUser()+" "+r.getResultNumber());
-            	results.add(r);
-            }
-		}catch (Exception e) { 
-			e.printStackTrace();
-		}
-		runOnUiThread(returnResults);
-	}
-	private Runnable returnResults = new Runnable() {
-        @Override
-        public void run() {
-            if(results != null && results.size() > 0){
-                resultsAdapter.notifyDataSetChanged();
-                for(int i=0; i<results.size(); i++)
-                	resultsAdapter.add(results.get(i));
-            }
-            resultsProgressDialog.dismiss();
-            resultsAdapter.notifyDataSetChanged();
-        }
-    };
-	
+    
 	private void selectSort(){
 		Resources resources = getResources();
     	final CharSequence[] items = resources.getStringArray(R.array.sorts);
@@ -180,5 +202,39 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
     	});
     	AlertDialog alert = builder.create();
     	alert.show();
+	}
+	
+	private void changeList(){
+        TextView listTitle = (TextView) findViewById(R.id.listtitle);
+        listTitle.setText("Ukupni rezultati");
+        ImageView changeList = (ImageView) findViewById(R.id.changeList);
+        changeList.setVisibility(4);
+		
+		viewResults = new Runnable(){
+            @Override
+            public void run(){
+                getResults(-1);
+            }
+        };
+        
+        Thread thread =  new Thread(null, viewResults, "GetResults");
+        thread.start();
+        resultsProgressDialog = ProgressDialog.show(ResultsActivity.this,    
+              "Prièekajte...", "Dohvaæanje podataka ...", true); 
+	}
+	
+	private void showHomeActivity(){
+		Intent resultIntent = new Intent(ResultsActivity.this, Main.class);
+		startActivity(resultIntent);
+		finish();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK){
+	    	showHomeActivity();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

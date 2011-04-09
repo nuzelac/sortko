@@ -57,7 +57,7 @@ public abstract class Algorithm {
 		
 		if (switchDuration > 10){
 			algorithmDifficulty *= 0.9;
-			if (switchDuration > 30){
+			if (switchDuration > 20){
 				addBonus = false;
 			}
 		}
@@ -65,7 +65,8 @@ public abstract class Algorithm {
 		double points = algorithmDifficulty * 10000 * 1./Math.pow(2.0 -(algorithmDifficulty/10.0),switchDuration);
     	
     	if (addBonus){
-    		points = points * (1.0 + cumulativeBonus/5.0);
+    		double bonus = 1.0 + cumulativeBonus/5.0;
+    		points = points * bonus;
     	}
     	
     	lastSwitchTime.setToNow();

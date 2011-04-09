@@ -13,6 +13,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -110,13 +111,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		break;
 		}
 	}
-	private void showResultActivity(){
-		Intent resultIntent = new Intent(SortingActivity.this, ResultsActivity.class);
-		resultIntent.putExtra("fer.sortko.com.result", points);
-		resultIntent.putExtra("fer.sortko.com.sortTypeNumber", sortTypeNumber);
-		startActivity(resultIntent);
-		finish();
-	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
@@ -243,6 +238,30 @@ public class SortingActivity extends Activity implements OnClickListener {
 		toast.setGravity(Gravity.TOP, 0, 50);
 		toast.show();
 	}
+	
+	private void showResultActivity(){
+		Intent resultIntent = new Intent(SortingActivity.this, ResultsActivity.class);
+		resultIntent.putExtra("fer.sortko.com.result", points);
+		resultIntent.putExtra("fer.sortko.com.sortTypeNumber", sortTypeNumber);
+		startActivity(resultIntent);
+		finish();
+	}
+	
+	private void showHomeActivity(){
+		Intent resultIntent = new Intent(SortingActivity.this, Main.class);
+		startActivity(resultIntent);
+		finish();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	showHomeActivity();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
 	@Override
 	public void onConfigurationChanged(final Configuration newConfig)
 	{
