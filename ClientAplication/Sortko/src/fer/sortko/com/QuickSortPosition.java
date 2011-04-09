@@ -11,8 +11,6 @@ Quicksort
 */
 
 public class QuickSortPosition extends AlgorithmPosition{
-	private static int helpVariableIndex = 8;
-	private int outerLoopIndex;
 	private QuickSort.QsPosition qsPosition;
 	private QuickSort.QsPosition previousQsPosition;
 	private int lijevo = 0;

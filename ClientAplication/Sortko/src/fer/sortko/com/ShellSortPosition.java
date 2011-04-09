@@ -4,7 +4,6 @@ import fer.sortko.com.ShellSort.ShellPosition;
 
 public class ShellSortPosition extends AlgorithmPosition{
 	private static boolean checkOrder = true;
-	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
 	private int step = 0;
 	private int i,j;

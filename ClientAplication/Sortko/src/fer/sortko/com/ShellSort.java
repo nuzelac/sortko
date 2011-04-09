@@ -7,7 +7,6 @@ public class ShellSort extends Algorithm{
 	private static int helpVariableIndex = 8;
 	private static int algorithmDifficulty = 1;
 	private boolean positionReturned = false;
-	private static boolean checkOrder = true;
 	private int switchCount = 0;
 	private int[] A = null;
 	private int korak = 0;

@@ -7,8 +7,6 @@ package fer.sortko.com;
  */
 
 public class SelectionSortPosition extends AlgorithmPosition{
-	private static boolean checkOrder = false;
-	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
 	
 	public SelectionSortPosition(int i, int j, int[] currentNumbersList) {

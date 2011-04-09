@@ -5,8 +5,7 @@ public class SelectionSort extends Algorithm {
 	private AlgorithmPosition lastChangePosition = null;
 	private AlgorithmPosition positionToReturn = null;
 	private int N = super.getNumbersCopy().length;
-	private static int helpVariableIndex = 8;
-	private static int algorithmDifficulty = 2;
+	private static int algorithmDifficulty = 4;
 	private boolean positionReturned = false;
 	private int switchCount = 0;
 	private int[] A = null;

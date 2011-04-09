@@ -12,21 +12,19 @@ public abstract class Algorithm {
 	public static int NEGATIVE_POINTS = 1000;
 	public boolean NEEDS_HELP_VARIABLE = false;
 	private boolean addBonus = true;
-	private boolean speedBonus = true;
-	private int switchAttempt = 0;
-
+	private int cumulativeBonus = 0;
 	private double algorithmDifficulty = 1;
 	private Time lastSwitchTime = new Time();
 	private Time startTime = new Time();
 
-	public Algorithm(int numberOfElements) {
+	public Algorithm(int numberOfElements){
 		this.setNumbers(randomList(numberOfElements));
 		this.numberOfElements = numberOfElements;
 		this.startTime.setToNow();
 		this.lastSwitchTime.setToNow();
-		this.algorithmDifficulty = (double)getAlgorithmDifficulty();
-		
+		this.algorithmDifficulty = (double)getAlgorithmDifficulty();	
 	}
+	
 	public abstract AlgorithmPosition findSwitch();
 	
 	public abstract int getAlgorithmDifficulty();
@@ -42,42 +40,35 @@ public abstract class Algorithm {
 		
 		if(isNextPosition(userPosition)){
 			switchNumber++;
-			switchAttempt++;
+			cumulativeBonus++;
 			return calculatePoints();
 		}
 		else {
-			switchAttempt++;
+			cumulativeBonus = 0;
 			return 0;
 		}
 	}
 	private long calculatePoints(){
-		// TODO: dodati da kao parametar uzima najduži period za uspješan potez i brainstormati ostale promjene
 		
 		Time currentTime = new Time();
 		currentTime.setToNow();
-		
-		double gameDuration = (currentTime.toMillis(true) - startTime.toMillis(true))/1000;
-		
-		if (gameDuration > (15 * algorithmDifficulty)){
-			addBonus = false;
-		}
 		
 		double switchDuration =  (currentTime.toMillis(true) - lastSwitchTime.toMillis(true))/1000;
 		
 		if (switchDuration > 10){
 			algorithmDifficulty *= 0.9;
+			if (switchDuration > 30){
+				addBonus = false;
+			}
 		}
 		
-    	double points = algorithmDifficulty * 1000;
+		double points = algorithmDifficulty * 10000 * 1./Math.pow(2.0 -(algorithmDifficulty/10.0),switchDuration);
     	
     	if (addBonus){
-    		points += points * 10 + algorithmDifficulty * 1./Math.pow(1.5,switchDuration);
+    		points = points * (1.0 + cumulativeBonus/5.0);
     	}
     	
-    	points = points / switchAttempt;
-    	
     	lastSwitchTime.setToNow();
-    	this.switchAttempt = 0;
     	
     	return (long)Math.floor(points);	
 	}
