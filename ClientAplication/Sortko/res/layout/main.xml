@@ -61,8 +61,7 @@
 		android:gravity="center"
 		android:layout_marginTop="10dp"
 		android:layout_marginLeft="30dp"
-		android:layout_marginRight="30dp"
-		android:digits="true">
+		android:layout_marginRight="30dp">
 	</EditText>
 	<LinearLayout android:id="@+id/buttonsform"
     android:layout_marginTop="20dp"

@@ -5,7 +5,7 @@
 	<string name="sortHelpMessage">Zamjeni dva broja pritiskom na gumb</string>
 
 <string name="username">Ime i prezime</string>
-<string name="jmbag">jedinstveni broj igrača</string>
+<string name="jmbag">jedinstveni broj studenta</string>
 <string name="unhint">koristi se za prikaz na listi najboljih igrača</string>
 <string name="resultmessage">Ostvareni rezultat:</string>
 <string-array name="sorts"><item>Bubble Sort</item>

@@ -11,11 +11,11 @@ public class BubbleSortPosition extends AlgorithmPosition{
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite algoritam tako da najprije usporedite prva dva elementa. Ukoliko je lijevi veæi od desnog zamjenite im mjesta a zatim nastavite usporeðivati sa sljedeæim elementom niza.";
+		String sortStartMessage = "Zapoènite algoritam tako da najprije usporedite prva dva elementa. Ako je lijevi veæi od desnog zamijenite ih te nastavite usporeðivati udesno.";
 		
-		String bubbleMessage = "Mijenjajte susjedne elemente ako je lijeva znamenka veæa od desne.";
+		String bubbleMessage = "Zamijenite susjedne elemente ako je lijevi veæi od desnog.";
 		String startMessage = "Krenite u " + Integer.toString(this.outerLoopIndex + 1)+ ". prolaz polja s lijeva." + bubbleMessage;
-		String sortErrorMessage = "Zadnja uspješna zamjena bili je na indexima "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexI())
+		String sortErrorMessage = "Zadnja uspješna zamjena bila je na indexima "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexI())
 			+" i "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexJ())+". Nastavite usporeðivati brojeve udesno.";
 		String bubbleErrorMessage = "Kod Bubble sorta se uvijek mijenjaju susjedni elementi. " + sortErrorMessage;
 		

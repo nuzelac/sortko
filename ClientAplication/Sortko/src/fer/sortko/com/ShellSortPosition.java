@@ -20,12 +20,12 @@ public class ShellSortPosition extends AlgorithmPosition{
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String stepStart = "Zapoènite prolaz niza s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
-		String stepContinue = "Nastavite s prolazom niza s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
-		String stepCompare = "Usporedite " + (i+1) + ". i " + (j+1) + ". element. Po potrebi napravite pomak " + i +". elementa na poziciju " + j +". elementa.";
+		String stepStart = "Zapoènite sortiranje s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
+		String stepContinue = "Nastavite sortiranje s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
+		String stepCompare = "Usporedite " + (i+1) + ". i " + (j+1) + ". element. Po potrebi napravite pomak " + (i+1) +". elementa na poziciju " + (j+1) +". elementa.";
 		String stepReturn = "Obavite povratak pomoæne varijable na odgovarajuæu poziciju.";
-		String stepInsertionSort = "Obavite sortiranje insertion sortom. (hk = 1)";
-		String copyOrderErrorMessage = "Prilikom kopiranja elementa morate paziti na redoslijed kopiranja. Ako kopiramo element iz polja 1 u polje 2 najprije selektiramo polje 1 pa onda polje 2";
+		String stepInsertionSort = "Obavite sortiranje Insertion sortom. (hk = 1)";
+		String copyOrderErrorMessage = "Prilikom kopiranja elemenata niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.";
 		
 		if (userAlgorithmPosition == null){
 			return stepStart;

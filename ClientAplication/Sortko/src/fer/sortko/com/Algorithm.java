@@ -62,7 +62,7 @@ public abstract class Algorithm {
 			}
 		}
 		
-		double points = algorithmDifficulty * 10000 * 1./Math.pow(2.0 -(algorithmDifficulty/10.0),switchDuration);
+		double points = 1000 + algorithmDifficulty * 10000 * 1./Math.pow(2.0 -(algorithmDifficulty/10.0),switchDuration);
     	
     	if (addBonus){
     		double bonus = 1.0 + cumulativeBonus/5.0;

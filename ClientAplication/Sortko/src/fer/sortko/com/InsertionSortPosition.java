@@ -4,28 +4,24 @@ public class InsertionSortPosition  extends AlgorithmPosition{
 	private static boolean checkOrder = true;
 	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
-	private int i;
-	private int j;
 	
 	public InsertionSortPosition(int i, int j, int[] currentNumbersList, int help, int outerLoopIndex) {
 		super(i, j, currentNumbersList, checkOrder, help);
-		this.i = i;
-		this.j = j;
 		this.outerLoopIndex  = outerLoopIndex;
 	}
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite algoritam tako da spremite drugi element polja u pomoænu varijablu u doljnjem desnom kutu ekrana.";
+		String sortStartMessage = "Zapoènite sortiranje tako da drugi element polja spremite u pomoænu varijablu dolje desno.";
 		
 		String startMessage = "Krenite u "+ this.outerLoopIndex +". prolaz polja poèevši s "+ (this.outerLoopIndex + 1) +". elementom. Koristite pomoænu varijablu kako bi pohranili taj element.";
 		String endMessage = "Završite "+ this.outerLoopIndex +". prolaz polja koristeæi pomoænu varijablu.";
 		String copyFirstMessage = "Pomièite elemente u desno (od "+ (this.outerLoopIndex + 1) +". elementa) kreèuæi se prema poèetku polja dok ne pronaðete odgovarajuæe mjesto za pomoænu varijablu.";
-		String copyMessage = "Nastavite pomicanje s "+(i+1)+". elementom i pomaknite ga udesno kako bi napravili mjesta za element u pomoænoj varijabli. ";
+		String copyMessage = "Nastavite sortiranje tako da pomaknete "+(super.getAlgorithmIndexI()+1)+". element udesno.";
 		
 		String errorMessage = "Pogrešan korak algoritma. Sljedeæi korak algoritma bi trebao biti ";
 		String copyErrorMessage = "Elementi se pomièu tako da se lijevi element kopira u njemu susjedni desni element ukoliko je lijevi veæi od elementa u pomoænoj varijabli.";
-		String copyOrderErrorMessage = "Prilikom kopiranja elementa morate paziti na redoslijed kopiranja. Ako kopiramo element iz polja 1 u polje 2 najprije selektiramo polje 1 pa onda polje 2.";
+		String copyOrderErrorMessage = "Prilikom kopiranja elementa niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.";
 		
 		if (userAlgorithmPosition == null){
 			return sortStartMessage;
@@ -56,12 +52,12 @@ public class InsertionSortPosition  extends AlgorithmPosition{
 				return copyErrorMessage;
 			}
 			else {
-				if (this.i == 8){
-					return errorMessage + "kopiranje pomoæne varijable na "+(i+1)+". element niza.";
-				} else if (this.j == 8){
-					return errorMessage + "kopiranje "+(i+1)+". elementa niza u pomoænu varijablu.";
+				if (super.getAlgorithmIndexI() == 8){
+					return errorMessage + "kopiranje pomoæne varijable na "+(super.getAlgorithmIndexJ()+1)+". element niza.";
+				} else if (super.getAlgorithmIndexJ() == 8){
+					return errorMessage + "kopiranje "+(super.getAlgorithmIndexI()+1)+". elementa niza u pomoænu varijablu.";
 				} else {
-					return errorMessage + "kopiranje "+(i+1)+". elementa niza na "+(j+1)+". element niza.";
+					return errorMessage + "kopiranje "+(super.getAlgorithmIndexI()+1)+". elementa niza na "+(super.getAlgorithmIndexJ()+1)+". element niza.";
 				}
 			}
 		}

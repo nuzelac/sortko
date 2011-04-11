@@ -26,7 +26,7 @@ public class QuickSortPosition extends AlgorithmPosition{
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite algoritam raèunajuæi medijan od 1., 4. i 8. elementa tako da ih usporedite i po potrebi zamijenite.";
+		String sortStartMessage = "Zapoènite sortiranje raèunajuæi medijan od 1., 4. i 8. elementa tako da ih usporedite i po potrebi zamijenite. Ako nema zamjena, sakrijte stožer na predzadnju poziciju.";
 		String median = "Izraèunajte medijan od "+(lijevo+1)+". elementa, (lijevog) srednjeg  i " + (desno+1) + ". elementa tako da ih usporedite i po potrebi zamijenite.";
 		String hidden = "Sakrijte stožer na predzadnju poziciju.";//dodati poruku (promatramo polje od tog do tog elementa)
 		String regularQs = "Pronaðite broj veæi ili jednak stožeru gledano na desno od "+ (lijevo + 1) +". elementa."
@@ -56,7 +56,7 @@ public class QuickSortPosition extends AlgorithmPosition{
 					} else return median;
 				case hidden :
 					if (!isSwitchSuccessful){
-						return hidden + " (zamjenite ga s "+desno+". elementom)";
+						return hidden + " (zamijenite ga s "+desno+". elementom)";
 					} else return hidden;
 				case insertion:
 					return insertion;

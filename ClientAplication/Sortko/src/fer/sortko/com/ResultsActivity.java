@@ -58,8 +58,6 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         sortingResult = getIntent().getLongExtra("fer.sortko.com.result", 0);
         sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", -1);
         
-        
-        
         if(sortingResult != 0){
 	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 	        username = settings.getString("username","Ivan Horvat");
