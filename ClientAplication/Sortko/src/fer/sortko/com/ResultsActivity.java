@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -124,7 +123,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 		try{
 			String result = callWebService("dohvatirezultate","idvrstesorta=" + Integer.toString(idVrsteSorta));
         	
-            String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",21);
+            String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",50);
             // header == <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
             // result == MarkoMarulic§139909&#xD;
             // footer == </string>
@@ -150,8 +149,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         	resultsAdapter.clear();
             if(results != null && results.size() > 0){
                 resultsAdapter.notifyDataSetChanged();
-                //TODO: otkriti zašto zadnji èudno ispisuje i maknuti onda ovaj "results.size()-1"
-                for(int i=0; i < results.size()-1; i++)
+                for(int i=0; i < results.size(); i++)
                 	resultsAdapter.add(results.get(i));
             }
             resultsProgressDialog.dismiss();
