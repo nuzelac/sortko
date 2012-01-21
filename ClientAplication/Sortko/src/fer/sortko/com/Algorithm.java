@@ -2,6 +2,7 @@ package fer.sortko.com;
 
 import java.util.Random;
 
+import android.content.Context;
 import android.text.format.Time;
 
 public abstract class Algorithm {
@@ -16,13 +17,15 @@ public abstract class Algorithm {
 	private double algorithmDifficulty = 1;
 	private Time lastSwitchTime = new Time();
 	private Time startTime = new Time();
+	protected Context context;
 
-	public Algorithm(int numberOfElements){
+	public Algorithm(int numberOfElements, Context passedContext){
 		this.setNumbers(randomList(numberOfElements));
 		this.numberOfElements = numberOfElements;
 		this.startTime.setToNow();
 		this.lastSwitchTime.setToNow();
-		this.algorithmDifficulty = (double)getAlgorithmDifficulty();	
+		this.algorithmDifficulty = (double)getAlgorithmDifficulty();
+		this.context = passedContext;
 	}
 	
 	public abstract AlgorithmPosition findSwitch();

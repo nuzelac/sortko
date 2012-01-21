@@ -1,5 +1,7 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class QuickSort extends Algorithm {
 	private static int helpVariableIndex = 8;
 	private QuickSortPosition lastChangePosition = null;
@@ -12,8 +14,8 @@ public class QuickSort extends Algorithm {
 	private int[] A = null;
 	int switchCount = 0;
 	
-	public QuickSort (int numberOfElements){
-		super(numberOfElements);
+	public QuickSort (int numberOfElements, Context passedContext){
+		super(numberOfElements, passedContext);
 		super.NEEDS_HELP_VARIABLE = true;
 	}
 
@@ -22,8 +24,8 @@ public class QuickSort extends Algorithm {
 		this.help = 0;
 		positionReturned = false;
 		switchCount = 0;
-		positionToReturn = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start);
-		lastChangePosition = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start);
+		positionToReturn = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start, context);
+		lastChangePosition = new QuickSortPosition(0, 0, A, false, 0, QsPosition.start,0,7, QsPosition.start, context);
 		
 		QSort (0, N - 1);
 		return positionToReturn;
@@ -32,11 +34,11 @@ public class QuickSort extends Algorithm {
 	private void setAlgorithmPosition(int i,int j, boolean checkOrder, QsPosition qsPosition, int lijevo, int desno){
 		switchCount++;
 		if (super.switchNumber == switchCount && !positionReturned){			
-			this.positionToReturn = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, lastChangePosition.getQsPosition());
+			this.positionToReturn = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, lastChangePosition.getQsPosition(), context);
 			positionReturned = true;
 		}
 		if(!positionReturned){
-			this.lastChangePosition = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, null);
+			this.lastChangePosition = new QuickSortPosition(i, j, A.clone(), checkOrder, this.help, qsPosition, lijevo, desno, null, context);
 		}
 	}
 

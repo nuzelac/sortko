@@ -1,27 +1,28 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class InsertionSortPosition  extends AlgorithmPosition{
 	private static boolean checkOrder = true;
 	private static int helpVariableIndex = 8;
 	private int outerLoopIndex;
 	
-	public InsertionSortPosition(int i, int j, int[] currentNumbersList, int help, int outerLoopIndex) {
-		super(i, j, currentNumbersList, checkOrder, help);
+	public InsertionSortPosition(int i, int j, int[] currentNumbersList, int help, int outerLoopIndex, Context passedContext) {
+		super(i, j, currentNumbersList, checkOrder, help, passedContext);
 		this.outerLoopIndex  = outerLoopIndex;
 	}
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite sortiranje tako da drugi element polja spremite u pomoænu varijablu dolje desno.";
+		String sortStartMessage = String.format(super.context.getString(R.string.insert_sortStartMessage));
+				
+		String startMessage = String.format(super.context.getString(R.string.insert_startMessage), this.outerLoopIndex, (this.outerLoopIndex + 1)); 
+		String endMessage = String.format(super.context.getString(R.string.insert_endMessage), this.outerLoopIndex); 
+		String copyFirstMessage = String.format(super.context.getString(R.string.insert_copyFirstMessage), (this.outerLoopIndex + 1));
+		String copyMessage = String.format(super.context.getString(R.string.insert_copyMessage), (super.getAlgorithmIndexI()+1)); 
 		
-		String startMessage = "Krenite u "+ this.outerLoopIndex +". prolaz polja poèevši s "+ (this.outerLoopIndex + 1) +". elementom. Koristite pomoænu varijablu kako bi pohranili taj element.";
-		String endMessage = "Završite "+ this.outerLoopIndex +". prolaz polja koristeæi pomoænu varijablu.";
-		String copyFirstMessage = "Pomièite elemente u desno (od "+ (this.outerLoopIndex + 1) +". elementa) kreèuæi se prema poèetku polja dok ne pronaðete odgovarajuæe mjesto za pomoænu varijablu.";
-		String copyMessage = "Nastavite sortiranje tako da pomaknete "+(super.getAlgorithmIndexI()+1)+". element udesno.";
-		
-		String errorMessage = "Pogrešan korak algoritma. Sljedeæi korak algoritma bi trebao biti ";
-		String copyErrorMessage = "Elementi se pomièu tako da se lijevi element kopira u njemu susjedni desni element ukoliko je lijevi veæi od elementa u pomoænoj varijabli.";
-		String copyOrderErrorMessage = "Prilikom kopiranja elementa niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.";
+		String copyErrorMessage = String.format(super.context.getString(R.string.insert_copyErrorMessage)); 
+		String copyOrderErrorMessage = String.format(super.context.getString(R.string.insert_copyOrderErrorMessage)); 
 		
 		if (userAlgorithmPosition == null){
 			return sortStartMessage;
@@ -53,11 +54,11 @@ public class InsertionSortPosition  extends AlgorithmPosition{
 			}
 			else {
 				if (super.getAlgorithmIndexI() == 8){
-					return errorMessage + "kopiranje pomoæne varijable na "+(super.getAlgorithmIndexJ()+1)+". element niza.";
+					return String.format(super.context.getString(R.string.insert_errorMessage_suggestCopyHelper), (super.getAlgorithmIndexJ()+1)); 
 				} else if (super.getAlgorithmIndexJ() == 8){
-					return errorMessage + "kopiranje "+(super.getAlgorithmIndexI()+1)+". elementa niza u pomoænu varijablu.";
+					return String.format(super.context.getString(R.string.insert_errorMessage_suggestCopyIntoHelper), (super.getAlgorithmIndexI()+1));  
 				} else {
-					return errorMessage + "kopiranje "+(super.getAlgorithmIndexI()+1)+". elementa niza na "+(super.getAlgorithmIndexJ()+1)+". element niza.";
+					return String.format(super.context.getString(R.string.insert_errorMessage_suggestCopyIntoSlot), (super.getAlgorithmIndexI()+1),(super.getAlgorithmIndexJ()+1));
 				}
 			}
 		}

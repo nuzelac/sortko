@@ -59,8 +59,8 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         
         if(sortingResult != 0){
 	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
-	        username = settings.getString("username","Ivan Horvat");
-	        jmbag = settings.getString("jmbag", "0000000000");
+	        username = settings.getString("username", this.getString(R.string.username_Default));
+	        jmbag = settings.getString("jmbag", this.getString(R.string.uniquestudentid_Default));
 	        
 	        methodName = "PohraniRezultat";
 			
@@ -105,8 +105,8 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         
         Thread thread =  new Thread(null, viewResults, "GetResults");
         thread.start();
-        resultsProgressDialog = ProgressDialog.show(ResultsActivity.this,    
-              "Prièekajte...", "Dohvaæanje podataka ...", true);        
+        resultsProgressDialog = ProgressDialog.show(ResultsActivity.this, 
+        		this.getString(R.string.progress_title), this.getString(R.string.progress_description), true);   
 	}
 	
 	@Override
@@ -187,7 +187,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 		Resources resources = getResources();
     	final CharSequence[] items = resources.getStringArray(R.array.sorts);
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Odaberi vrstu sortiranja!");
+    	builder.setTitle(this.getString(R.string.select_sort));
     	builder.setItems(items, new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int item) {
   	    	  Intent sortIntent = new Intent(ResultsActivity.this,SortingActivity.class); 
@@ -202,7 +202,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	
 	private void changeList(){
         TextView listTitle = (TextView) findViewById(R.id.listtitle);
-        listTitle.setText("Ukupni rezultati");
+        listTitle.setText(this.getString(R.string.overallresults));
         ImageView changeList = (ImageView) findViewById(R.id.changeList);
         changeList.setVisibility(4);
 		
@@ -216,7 +216,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         Thread thread =  new Thread(null, viewResults, "GetResults");
         thread.start();
         resultsProgressDialog = ProgressDialog.show(ResultsActivity.this,    
-              "Prièekajte...", "Dohvaæanje podataka ...", true); 
+              this.getString(R.string.progress_title), this.getString(R.string.progress_title), true); 
 	}
 	
 	private void showHomeActivity(){

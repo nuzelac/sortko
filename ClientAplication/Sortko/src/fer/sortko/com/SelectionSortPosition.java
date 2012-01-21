@@ -1,4 +1,7 @@
 package fer.sortko.com;
+
+import android.content.Context;
+
 /*
  * 1.	Kreni u iti korak algoritma i traži najmanji element polja od desno od itog elementa.
  * 2.	Zamjeni najmanji element polja desno od i-tog elementa s i-tim elementom.
@@ -9,18 +12,16 @@ package fer.sortko.com;
 public class SelectionSortPosition extends AlgorithmPosition{
 	private int outerLoopIndex;
 	
-	public SelectionSortPosition(int i, int j, int[] currentNumbersList) {
-		super(i, j, currentNumbersList);
+	public SelectionSortPosition(int i, int j, int[] currentNumbersList, Context passedContext) {
+		super(i, j, currentNumbersList, passedContext);
 		this.outerLoopIndex  = i;
 	}
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite sortiranje zamjenom koja postavlja najmanji element na poèetak polja.";
-		String mainMessage = "Zamjenite najmanji element polja desno od "+ (this.outerLoopIndex + 1) +". elementa s "+ (this.outerLoopIndex + 1) +". elementom.";		
-		String errorMessage = "Polje je sada sortirano do "+ (this.outerLoopIndex + 1) +". elementa. "+
-		"Nastavite sortiranje zamjenom koja postavlja najmanji element desno od "+ (this.outerLoopIndex + 1) 
-		+". elementa na mjesto "+ (this.outerLoopIndex + 1)+". elementa.";
+		String sortStartMessage = String.format(super.context.getString(R.string.select_sortStartMessage));
+		String mainMessage = String.format(super.context.getString(R.string.select_mainMessage), (this.outerLoopIndex + 1), (this.outerLoopIndex + 1));		
+		String errorMessage = String.format(super.context.getString(R.string.select_errorMessage), (this.outerLoopIndex + 1), (this.outerLoopIndex + 1), (this.outerLoopIndex + 1));
 		
 		if (userAlgorithmPosition == null){
 			return sortStartMessage;

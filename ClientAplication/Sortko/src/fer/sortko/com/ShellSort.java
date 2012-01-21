@@ -1,5 +1,7 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class ShellSort extends Algorithm{
 	private AlgorithmPosition lastChangePosition = null;
 	private AlgorithmPosition positionToReturn = null;
@@ -13,8 +15,8 @@ public class ShellSort extends Algorithm{
 	private int i = 0;
 	private int j = 0;
 	
-	public ShellSort (int numberOfElements){
-		super(numberOfElements);
+	public ShellSort (int numberOfElements, Context passedContext){
+		super(numberOfElements, passedContext);
 		super.NEEDS_HELP_VARIABLE = true;
 	}
 	
@@ -26,8 +28,8 @@ public class ShellSort extends Algorithm{
 		j = 0;
 		korak = 0;
 		
-		this.lastChangePosition = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart);
-		this.positionToReturn = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart);
+		this.lastChangePosition = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart, context);
+		this.positionToReturn = new ShellSortPosition(0, 0, A, 0, 0, 0, ShellPosition.stepStart, context);
 		this.positionToReturn.setPreviousAlgorithmPosition(lastChangePosition);
 
 		for (korak = N / 2; korak > 0; korak /= 2) {
@@ -49,12 +51,12 @@ public class ShellSort extends Algorithm{
 	private void SetAlgorithmPosition(int i, int j, int outerLoopIndex, int korak, ShellPosition sp){
 		switchCount++;
 		if (super.switchNumber == switchCount){
-			positionToReturn = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp);
+			positionToReturn = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp, context);
 			positionToReturn.setPreviousAlgorithmPosition(this.lastChangePosition);
 			positionReturned = true;
 		}
 		if(!positionReturned){
-			this.lastChangePosition = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp);
+			this.lastChangePosition = new ShellSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, korak, sp, context);
 		}
 	}
 	@Override

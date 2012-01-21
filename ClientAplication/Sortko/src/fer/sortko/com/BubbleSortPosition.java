@@ -1,23 +1,23 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class BubbleSortPosition extends AlgorithmPosition{
 	
 	private int outerLoopIndex;
 
-	public BubbleSortPosition(int i, int j, int[] currentNumbersList, int indexOuterLoop) {
-		super(i, j, currentNumbersList);
+	public BubbleSortPosition(int i, int j, int[] currentNumbersList, int indexOuterLoop, Context passedContext) {
+		super(i, j, currentNumbersList, passedContext);
 		this.outerLoopIndex = indexOuterLoop;
 	}
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite algoritam tako da najprije usporedite prva dva elementa. Ako je lijevi veæi od desnog zamijenite ih te nastavite usporeðivati udesno.";
-		
-		String bubbleMessage = "Zamijenite susjedne elemente ako je lijevi veæi od desnog.";
-		String startMessage = "Krenite u " + Integer.toString(this.outerLoopIndex + 1)+ ". prolaz polja s lijeva." + bubbleMessage;
-		String sortErrorMessage = "Zadnja uspješna zamjena bila je na indexima "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexI())
-			+" i "+Integer.toString(this.getPreviousAlgorithmPosition().getAlgorithmIndexJ())+". Nastavite usporeðivati brojeve udesno.";
-		String bubbleErrorMessage = "Kod Bubble sorta se uvijek mijenjaju susjedni elementi. " + sortErrorMessage;
+		String sortStartMessage = super.context.getString(R.string.bubble_sortStartMessage);
+		String bubbleMessage = super.context.getString(R.string.bubble_bubbleMessage);
+		String startMessage = String.format(super.context.getString(R.string.bubble_startMessage), this.outerLoopIndex + 1, bubbleMessage);
+		String sortErrorMessage = String.format(super.context.getString(R.string.bubble_sortErrorMessage),this.getPreviousAlgorithmPosition().getAlgorithmIndexI(),this.getPreviousAlgorithmPosition().getAlgorithmIndexJ());
+		String bubbleErrorMessage = String.format(super.context.getString(R.string.bubble_bubbleErrorMessage),sortErrorMessage);
 		
 		// if (userAP == null) poèetak sortiranja - ispisati poèetnu poruku
 		// if (isSwitchSuccessful) ispisati poruku za sljedeæi potez

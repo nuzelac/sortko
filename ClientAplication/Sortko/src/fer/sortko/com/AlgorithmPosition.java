@@ -1,5 +1,7 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	private int algorithmIndexI;
 	private int algorithmIndexJ;
@@ -7,11 +9,13 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 	private int[] currentNumbersList;
 	private boolean checkOrder = false;
 	private AlgorithmPosition previousAlgorithmPosition = null;
+	protected Context context;
 
-	public AlgorithmPosition(int i, int j,int[] currentNumbersList){
+	public AlgorithmPosition(int i, int j,int[] currentNumbersList, Context passedContext){
 		this.setAlgorithmIndexI(i);
 		this.setAlgorithmIndexJ(j);
 		this.currentNumbersList = currentNumbersList;
+		this.context = passedContext;
 	}
 	
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
@@ -22,12 +26,13 @@ public class AlgorithmPosition implements Comparable<AlgorithmPosition>{
 		return "Base class message!";
 	}
 
-	public AlgorithmPosition(int i, int j,int[] currentNumbersList, boolean checkOrder, int helpVariable){
+	public AlgorithmPosition(int i, int j,int[] currentNumbersList, boolean checkOrder, int helpVariable, Context passedContext){
 		this.setAlgorithmIndexI(i);
 		this.setAlgorithmIndexJ(j);
 		this.currentNumbersList = currentNumbersList;
 		this.setCheckOrder(checkOrder);
 		this.setHelpVariable(helpVariable);
+		this.context = passedContext;
 	}
 
 	public void setAlgorithmIndexJ(int algorithmIndexJ) {

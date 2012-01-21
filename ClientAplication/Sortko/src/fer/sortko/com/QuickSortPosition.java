@@ -1,5 +1,6 @@
 package fer.sortko.com;
 
+import android.content.Context;
 import fer.sortko.com.QuickSort.QsPosition;
 
 /*
@@ -16,8 +17,8 @@ public class QuickSortPosition extends AlgorithmPosition{
 	private int lijevo = 0;
 	private int desno = 0;
 	
-	public QuickSortPosition(int i, int j, int[] currentNumbersList, boolean checkOrder, int help, QuickSort.QsPosition qsPosition, int lijevo, int desno, QuickSort.QsPosition previousQsposition){
-		super(i, j, currentNumbersList, checkOrder, help);
+	public QuickSortPosition(int i, int j, int[] currentNumbersList, boolean checkOrder, int help, QuickSort.QsPosition qsPosition, int lijevo, int desno, QuickSort.QsPosition previousQsposition, Context passedContext){
+		super(i, j, currentNumbersList, checkOrder, help, passedContext);
 		this.setQsPosition(qsPosition);
 		this.setPreviousQsPosition(previousQsPosition);
 		this.lijevo = lijevo;
@@ -26,14 +27,12 @@ public class QuickSortPosition extends AlgorithmPosition{
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String sortStartMessage = "Zapoènite sortiranje raèunajuæi medijan od 1., 4. i 8. elementa tako da ih usporedite i po potrebi zamijenite. Ako nema zamjena, sakrijte stožer na predzadnju poziciju.";
-		String median = "Izraèunajte medijan od "+(lijevo+1)+". elementa, (lijevog) srednjeg  i " + (desno+1) + ". elementa tako da ih usporedite i po potrebi zamijenite.";
-		String hidden = "Sakrijte stožer na predzadnju poziciju.";//dodati poruku (promatramo polje od tog do tog elementa)
-		String regularQs = "Pronaðite broj veæi ili jednak stožeru gledano na desno od "+ (lijevo + 1) +". elementa."
-							+" Pronaðite broj manji ili jednak stožeru na lijevo od "+ desno +". elementa."
-							+" Napravite zamjenu ili vratite stožer.";
-		String returnSt = "Vratite stožer. ("+desno+". element)";
-		String insertion = "Sortirajte podniz od "+(lijevo+1)+". do "+(desno+1)+". elementa prema Insertion sort algoritmu.";
+		String sortStartMessage = String.format(super.context.getString(R.string.quick_sortStartMessage));
+		String median = String.format(super.context.getString(R.string.quick_median),(lijevo+1),(desno+1)); 
+		String hidden = String.format(super.context.getString(R.string.quick_hidden)); 
+		String regularQs = String.format(super.context.getString(R.string.quick_regularQs),(lijevo + 1),desno);
+		String returnSt = String.format(super.context.getString(R.string.quick_returnSt), desno); 
+		String insertion = String.format(super.context.getString(R.string.quick_insertion), (lijevo+1), (desno+1)); 
 		
 		if (userAlgorithmPosition == null){
 			return sortStartMessage;
@@ -44,25 +43,25 @@ public class QuickSortPosition extends AlgorithmPosition{
 					return sortStartMessage;
 				case median12 :
 					if (!isSwitchSuccessful){
-						return median + " (prvi i srednji element)";
+						return String.format(super.context.getString(R.string.quick_median_12), median);
 					} else return median;
 				case median13 :
 					if (!isSwitchSuccessful){
-						return median + " (prvi i zadnji element)";
+						return String.format(super.context.getString(R.string.quick_median_13), median);
 					} else return median;
 				case median23 :
 					if (!isSwitchSuccessful){
-						return median + " (srednji i zadnji element)";
+						return String.format(super.context.getString(R.string.quick_median_23), median);
 					} else return median;
 				case hidden :
 					if (!isSwitchSuccessful){
-						return hidden + " (zamijenite ga s "+desno+". elementom)";
+						return String.format(super.context.getString(R.string.quick_hidden_hint), hidden, desno);
 					} else return hidden;
 				case insertion:
 					return insertion;
 				case regularQs:
 					if (this.previousQsPosition == QsPosition.regularQs){
-						return "Nastavite dalje. " + regularQs;
+						return String.format(super.context.getString(R.string.quick_regularQs_continue), regularQs);
 					} else {
 						return regularQs;
 					}

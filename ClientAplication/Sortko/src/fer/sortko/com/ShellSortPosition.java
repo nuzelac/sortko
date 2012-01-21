@@ -1,5 +1,6 @@
 package fer.sortko.com;
 
+import android.content.Context;
 import fer.sortko.com.ShellSort.ShellPosition;
 
 public class ShellSortPosition extends AlgorithmPosition{
@@ -9,8 +10,8 @@ public class ShellSortPosition extends AlgorithmPosition{
 	private int i,j;
 	private ShellPosition sp;
 	
-	public ShellSortPosition(int i, int j, int[] currentNumbersList, int help, int outerLoopIndex, int step, ShellPosition sp) {
-		super(i, j, currentNumbersList, checkOrder, help);
+	public ShellSortPosition(int i, int j, int[] currentNumbersList, int help, int outerLoopIndex, int step, ShellPosition sp, Context passedContext) {
+		super(i, j, currentNumbersList, checkOrder, help, passedContext);
 		this.outerLoopIndex  = outerLoopIndex;
 		this.i = i;
 		this.j = j;
@@ -20,12 +21,12 @@ public class ShellSortPosition extends AlgorithmPosition{
 	
 	@Override
 	public String getHelpMessage(AlgorithmPosition userAlgorithmPosition, boolean isSwitchSuccessful){
-		String stepStart = "Zapoènite sortiranje s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
-		String stepContinue = "Nastavite sortiranje s korakom hk = " + step + ". Najprije kopirajte "+(i+1)+". element u pomoænu varijablu.";
-		String stepCompare = "Usporedite " + (i+1) + ". i " + (j+1) + ". element. Po potrebi napravite pomak " + (i+1) +". elementa na poziciju " + (j+1) +". elementa.";
-		String stepReturn = "Obavite povratak pomoæne varijable na odgovarajuæu poziciju.";
-		String stepInsertionSort = "Obavite sortiranje Insertion sortom. (hk = 1)";
-		String copyOrderErrorMessage = "Prilikom kopiranja elemenata niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.";
+		String stepStart = String.format(super.context.getString(R.string.shell_stepStart), step, (i+1));
+		String stepContinue = String.format(super.context.getString(R.string.shell_stepContinue), step, (i+1));
+		String stepCompare = String.format(super.context.getString(R.string.shell_stepCompare), (i+1), (j+1), (i+1), (j+1)); 
+		String stepReturn = String.format(super.context.getString(R.string.shell_stepReturn)); 
+		String stepInsertionSort = String.format(super.context.getString(R.string.shell_stepInsertionSort)); 
+		String copyOrderErrorMessage = String.format(super.context.getString(R.string.shell_copyOrderErrorMessage)); 
 		
 		if (userAlgorithmPosition == null){
 			return stepStart;

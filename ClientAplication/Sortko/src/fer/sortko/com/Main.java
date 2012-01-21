@@ -42,13 +42,13 @@ public class Main extends Activity{
         
         SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 
-        username = settings.getString("username",getResources().getString(R.string.usernameDefault));
-        jmbag = settings.getString("jmbag",getResources().getString(R.string.jmbagDefault));
+        username = settings.getString("username",getResources().getString(R.string.username_Default));
+        jmbag = settings.getString("jmbag",getResources().getString(R.string.uniquestudentid_Default));
         
-        if (username != getResources().getString(R.string.usernameDefault)){
+        if (username != getResources().getString(R.string.username_Default)){
         	usernameedit.setText(username);
         }
-        if (jmbag != getResources().getString(R.string.usernameDefault)){
+        if (jmbag != getResources().getString(R.string.uniquestudentid_Default)){
         	jmbagedit.setText(jmbag);
         }
 	}  
@@ -78,7 +78,7 @@ public class Main extends Activity{
 		Resources resources = getResources();
     	final CharSequence[] items = resources.getStringArray(R.array.sorts);
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Odaberi vrstu sortiranja!");
+    	builder.setTitle(resources.getString(R.string.select_sort));
     	builder.setItems(items, new DialogInterface.OnClickListener() {
     		public void onClick(DialogInterface dialog, int item) {
   	    	  Intent sortIntent = new Intent(Main.this, SortingActivity.class);

@@ -1,5 +1,7 @@
 package fer.sortko.com;
 
+import android.content.Context;
+
 public class InsertionSort extends Algorithm {
 
 	private AlgorithmPosition lastChangePosition = null;
@@ -13,8 +15,8 @@ public class InsertionSort extends Algorithm {
 	private int j = 0;
 	private int N = super.getNumbersCopy().length;
 	
-	public InsertionSort (int numberOfElements){
-		super(numberOfElements);
+	public InsertionSort (int numberOfElements, Context passedContext){
+		super(numberOfElements, passedContext);
 		super.NEEDS_HELP_VARIABLE = true;
 	}
 
@@ -25,8 +27,8 @@ public class InsertionSort extends Algorithm {
 		i = 0;
 		j = 0;
 		
-		this.lastChangePosition = new InsertionSortPosition(0, 0, A, 0, 0);
-		this.positionToReturn = new InsertionSortPosition(0, 0, A, 0, 0);
+		this.lastChangePosition = new InsertionSortPosition(0, 0, A, 0, 0, context);
+		this.positionToReturn = new InsertionSortPosition(0, 0, A, 0, 0, context);
 		this.positionToReturn.setPreviousAlgorithmPosition(lastChangePosition);
 
 		for (i = 1; i < N; i++){
@@ -44,7 +46,7 @@ public class InsertionSort extends Algorithm {
 	private void SetAlgorithmPosition(int i, int j, int outerLoopIndex){
 		switchCount++;
 		if (super.switchNumber == switchCount){
-			positionToReturn = new InsertionSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex);
+			positionToReturn = new InsertionSortPosition(i, j, this.A.clone(), this.help, outerLoopIndex, context);
 			positionToReturn.setPreviousAlgorithmPosition(this.lastChangePosition);
 			positionReturned = true;
 		}

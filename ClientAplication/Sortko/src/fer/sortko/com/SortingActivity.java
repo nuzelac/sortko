@@ -99,15 +99,15 @@ public class SortingActivity extends Activity implements OnClickListener {
 		sortName.setText(items[sortTypeNumber]);
 
 		switch (sortTypeNumber){
-		case 0: sort = new BubbleSort(NO_NUMBERS);
+		case 0: sort = new BubbleSort(NO_NUMBERS, this);
 		break;
-		case 1: sort = new InsertionSort(NO_NUMBERS);
+		case 1: sort = new InsertionSort(NO_NUMBERS, this);
 		break;
-		case 2: sort = new QuickSort(NO_NUMBERS);
+		case 2: sort = new QuickSort(NO_NUMBERS, this);
 		break;
-		case 3: sort = new ShellSort(NO_NUMBERS);
+		case 3: sort = new ShellSort(NO_NUMBERS, this);
 		break;
-		case 4: sort = new SelectionSort(NO_NUMBERS);
+		case 4: sort = new SelectionSort(NO_NUMBERS, this);
 		break;
 		}
 	}
@@ -142,7 +142,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		Resources resources = getResources();
 		final CharSequence[] items = resources.getStringArray(R.array.sorts);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Odaberi vrstu sortiranja!");
+		builder.setTitle(this.getString(R.string.select_sort));
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int item) {
 				Intent sortIntent = new Intent(SortingActivity.this,SortingActivity.class); 
@@ -178,7 +178,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 	
 	private void goToNextAlgStepUpdateUI(int buttonNumber) {
 		AlgorithmPosition ap;
-		AlgorithmPosition userAlgorithmPosition = new AlgorithmPosition(selectedButton, buttonNumber, null);
+		AlgorithmPosition userAlgorithmPosition = new AlgorithmPosition(selectedButton, buttonNumber, null, this);
 		long newPoints = sort.goToNextPosition(userAlgorithmPosition);
 		
 		ap = sort.findSwitch();

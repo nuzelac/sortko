@@ -1,24 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="sort_name">Bubble sort</string>
-    <string name="app_name">Sortko</string>
-	<string name="sortHelpMessage">Zamjeni dva broja pritiskom na gumb</string>
 
-<string name="username">Ime i prezime</string>
-<string name="jmbag">jedinstveni broj studenta</string>
-<string name="unhint">koristi se za prikaz na listi najboljih igrača</string>
-<string name="resultmessage">Ostvareni rezultat:</string>
-<string-array name="sorts"><item>Bubble Sort</item>
-<item>Insertion sort</item>
+<!-- General strings -->
+<string name="app_name">Sortko</string>
+<string name="sortingover">Sorting completed!</string>
+<string name="sortingFault">&quot;Incorrect sort! Try again!&quot;</string>
+<string name="select_sort">Select sort algorithm!</string>
+<string name="username_Default">John Doe</string>
+<string name="uniquestudentid_Default">0000000000</string>
 
-<item>Quick sort</item>
-<item>Shell sort</item>
-<item>Selection sort</item>
-</string-array>
-<string name="empty_list">Lista se ne može dohvatiti.</string>
-<string name="sortingover">Sortiranje završeno!</string>
-<string name="jmbagDefault">0000000000</string>
-<string name="usernameDefault">Ivan Horvat</string>
+<!-- Layout - main.xml -->
+<string name="username">Name and surname</string>
+<string name="username_hint">Used for entry into the top players list</string>
+<string name="uniquestudentid">Student ID</string>
+<string name="uniquestudentid_hint">Student ID is used to track progress on the list</string>
+<string name="sortit_btntext">Sort</string>
+<string name="results_btntext">Results</string>
+
+<!-- Layout - result.xml -->
+<string name="achievedresult">Achieved results:</string>
+<string name="selectsort">Choose sort</string>
+<string name="overallresults">Overall results</string>
+<string name="overall">overall</string>
+<string name="empty_list">The list could not be retrieved.</string>
+
+<!-- Layout - sort.xml -->
+<string name="sort_name_default">Generic sort</string>
+<string name="change_sort_type">change</string>
+<string name="sortHelpMessage">Change places of two elements by tapping their cells.</string>
+
+<!-- Code - ResultsActivity.java -->
+<string name="progress_title">Please wait...</string>
+<string name="progress_description">Getting data...</string>
+
+<!-- Code - BubbleSortPosition.java -->
+<string name="bubble_sortStartMessage">Start the algorithm by comparing the first two elements. If the left one is larger then the right one, exchange them and continue with comparisons of elements rightwards.</string>
+<string name="bubble_bubbleMessage">Exchange the neighbouring elements if the left one is larger then the right one.</string>
+<string name="bubble_startMessage">Start pass #%d from the left. %s</string>
+<string name="bubble_sortErrorMessage">The last successful exchange was between elements at spots %d and %d. Continue comparisons rightwards.</string>
+<string name="bubble_bubbleErrorMessage">When using Bubble sort, one can only exchange neighbouring elements. %s</string>
+
+<!-- Code - InsertionSortPosition.java -->
+<string name="insert_sortStartMessage">Start the algorithm by placing the element in the second spot into the temporary variable in the bottom right</string>
+<string name="insert_startMessage">Start pass #%d, starting with the element at spot %d. Use the temporary variable to store that element.</string>
+<string name="insert_endMessage">Finish pass #%d by using the temporary variable</string>
+<string name="insert_copyFirstMessage">Move elements to the right (starting with the element at spot %d), moving towards the beginning of the array until you find the appropriate spot for the element stored in the temporary variable.</string>
+<string name="insert_copyMessage">Continue sorting by moving the element at spot %d rightwards.</string>
+<string name="insert_copyErrorMessage">Elements are moved by copying the left element into its neighbour to the right if the left element is larger then the element stored in the temporary variable.</string>
+<string name="insert_copyOrderErrorMessage">When copying elements in the array be mindful of the order in which you do so. First select the element to be copied and then select the destination spot.</string>
+<string name="insert_errorMessage_suggestCopyHelper">Incorrect step. The next step of the algorithm should be to copy the element stored in the temporary variable into spot %d.</string>
+<string name="insert_errorMessage_suggestCopyIntoHelper">Incorrect step. The next step of the algorithm should be to copy the element at spot %d into the temporary variable.</string>
+<string name="insert_errorMessage_suggestCopyIntoSlot">Incorrect step. The next step of the algorithm should be to copy the element at spot %d into spot %d.</string>
+
+<!-- Code - QuickSortPosition.java -->
+<string name="quick_sortStartMessage">Start sorting by calculating the median of the elements at spots 1, 4 and 8 by comparing them and exchanging them if necessary. If no exchanges are necessary, hide the pivot in next-to-last spot.</string>
+<string name="quick_median">Calculate the median of the elements at spot %d, the (left) middle spot and spot %d by comparing them and exchanging them if necessary.</string>
+<string name="quick_hidden">Hide the pivot in the next-to-last spot.</string>
+<string name="quick_regularQs">Find an element equal to or larger than the pivot in the elements to the right of the element at spot %d. Find an element smaller than or equal to the pivot in the elements preceeding the element at spot %d. Exchange them or return the pivot to its spot.</string> 
+<string name="quick_returnSt">Return the pivot to its spot. (Spot %d)</string>
+<string name="quick_insertion">Sort the subarray between spots %d and %d using the Insertion Sort algorithm.</string>
+<string name="quick_median_12">%s (the first and middle element)</string>
+<string name="quick_median_13">%s (the first and last element)</string>
+<string name="quick_median_23">%s (the middle and last element)</string>
+<string name="quick_hidden_hint">%s (exchange it with the element at spot %d)</string>
+<string name="quick_regularQs_continue">Continue. %s</string>
+
+
+<!-- Code - SelectionSortPosition.java -->
+<string name="select_sortStartMessage">Start sorting by exchanging the first element with the smallest element.</string>
+<string name="select_mainMessage">Exchange the smallest element of the array to the right of the element at spot %d with the element at spot %d.</string>
+<string name="select_errorMessage">The array is now sorted up until the element at spot %d. Continue sorting by exchanging the smallest element to the right of the element at spot %d with the element at spot %d.</string>
+
+<!-- Code - ShellSortPosition.java -->
+<string name="shell_stepStart">Start sorting with the step hk = %d. First copy the element at spot %d into the temporary variable.</string>
+<string name="shell_stepContinue">Continue sorting with the step hk = %d. First copy the element at spot %d into the temporary variable.</string>
+<string name="shell_stepCompare">Compare elements at spots %d and %d. If necessary, exchange the element at spot %d with the element at spot %d.</string>
+<string name="shell_stepReturn">Return the element stored in the temporary variable to the appropriate spot.</string>
+<string name="shell_stepInsertionSort">Sort using an Insertion sort pass. (hk = 1)</string>
+<string name="shell_copyOrderErrorMessage">When copying elements in the array be mindful of the order in which you do so. First select the element to be copied and then select the destination spot.</string>
+
+<!-- Do not localize -->
 <string name="sortko_prefrences">SortkoPrefsFile</string>
-<string name="sortingFault">&quot;Neispravan korak sortiranja!&quot;</string>
+<string-array name="sorts">
+	<item>Bubble Sort</item>
+	<item>Insertion Sort</item>
+	<item>Quick Sort</item>
+	<item>Shell Sort</item>
+	<item>Selection Sort</item>
+</string-array>
+
 </resources>

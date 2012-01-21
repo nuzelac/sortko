@@ -36,7 +36,7 @@
     android:textStyle="bold"
     android:textSize="22dp"
     android:textColor="#fff"
-    android:text="@string/sort_name"
+    android:text="@string/sort_name_default"
     />
 
 <ImageView android:id="@+id/changeSort"
