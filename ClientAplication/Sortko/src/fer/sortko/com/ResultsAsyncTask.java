@@ -23,8 +23,8 @@ public class ResultsAsyncTask extends AsyncTask<String, Void, String>{
 	
 	public String getWebService(String methodName, String methodParams){
         HttpClient client = new DefaultHttpClient();
-    	HttpHost targetHost = new HttpHost("www.sortko.com.hr",80,"http");
-    	HttpGet httpGet = new HttpGet("/sortkoservice.svc/"+methodName+"?"+methodParams);
+    	HttpHost targetHost = new HttpHost("161.53.18.12",80,"http");
+    	HttpGet httpGet = new HttpGet("/SortkoService/sortkoservice.svc/"+methodName+"?"+methodParams);
     	String result = null;
         HttpEntity entity = null;
         try {

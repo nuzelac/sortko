@@ -79,14 +79,18 @@
 			android:textColor="#fff"
 	    	android:text="@string/overallresults">
 	    </TextView>
-	    <ImageView android:id="@+id/changeList"
-			android:src="@drawable/total"
-		    android:layout_width="wrap_content"
+	    <TextView
+	    	android:id="@+id/changeList"
+			android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignBottom="@+id/sortname"
 		    android:layout_marginLeft="10dp"
-		    android:paddingTop="7dp">
-		</ImageView>
+		    android:paddingTop="7dp"
+		    android:textStyle="bold"
+			android:textSize="13dp"
+			android:textColor="#ff7d00"
+	    	android:text="@string/overall">
+	    </TextView>
     </LinearLayout>
     
 	<ListView

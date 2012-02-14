@@ -17,6 +17,10 @@
 <string name="sortit_btntext">Sort</string>
 <string name="results_btntext">Results</string>
 
+<!-- Menu - options_menu.xml -->
+<string name="menu_help">Help</string>
+<string name="menu_about">About Sortko</string>
+
 <!-- Layout - result.xml -->
 <string name="achievedresult">Achieved results:</string>
 <string name="selectsort">Choose sort</string>
@@ -79,6 +83,10 @@
 <string name="shell_stepInsertionSort">Sort using an Insertion sort pass. (hk = 1)</string>
 <string name="shell_copyOrderErrorMessage">When copying elements in the array be mindful of the order in which you do so. First select the element to be copied and then select the destination spot.</string>
 
+<!-- Context menu URLs -->
+<string name="url_help">http://161.53.18.12/Sortko/instructions.html</string>
+<string name="url_about">http://161.53.18.12/Sortko/default.html</string>
+
 <!-- Do not localize -->
 <string name="sortko_prefrences">SortkoPrefsFile</string>
 <string-array name="sorts">
@@ -88,5 +96,7 @@
 	<item>Shell Sort</item>
 	<item>Selection Sort</item>
 </string-array>
+<string name="url_domain_webservice">161.53.18.12</string>
+<string name="url_path_webservice">/SortkoService/sortkoservice.svc/</string>
 
 </resources>

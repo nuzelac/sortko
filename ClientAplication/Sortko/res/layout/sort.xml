@@ -39,7 +39,11 @@
     android:text="@string/sort_name_default"
     />
 
-<ImageView android:id="@+id/changeSort"
+<TextView android:id="@+id/changeSort"
+	android:text="@string/change_sort_type"
+	android:textStyle="bold"
+	android:textSize="13dp"
+	android:textColor="#ff7d00"
 	android:layout_toRightOf="@+id/sortname"
 	android:src="@drawable/change_sort"
     android:layout_width="wrap_content" 
@@ -47,7 +51,7 @@
     android:layout_alignBottom="@+id/sortname"
     android:paddingBottom="3dp"
     android:paddingLeft="10dp">
-</ImageView>
+</TextView>
     
 <TextView android:id="@+id/sortHelpMessage"
 	android:layout_below="@+id/sortname"

@@ -17,6 +17,10 @@
 <string name="sortit_btntext">Sortiraj</string>
 <string name="results_btntext">Rezultati</string>
 
+<!-- Menu - options_menu.xml -->
+<string name="menu_help">Pomoć</string>
+<string name="menu_about">O Sortku</string>
+
 <!-- Layout - result.xml -->
 <string name="achievedresult">Ostvareni rezultat:</string>
 <string name="selectsort">Odaberi sort</string>
@@ -78,5 +82,9 @@
 <string name="shell_stepReturn">Obavite povratak pomoćne varijable na odgovarajuću poziciju.</string>
 <string name="shell_stepInsertionSort">Obavite sortiranje Insertion sortom. (hk = 1)</string>
 <string name="shell_copyOrderErrorMessage">Prilikom kopiranja elemenata niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.</string>
+
+<!-- Context menu URLs -->
+<string name="url_help">http://161.53.18.12/Sortko/instructionshr.html</string>
+<string name="url_about">http://161.53.18.12/Sortko/defaulthr.html</string>
 
 </resources>

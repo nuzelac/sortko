@@ -11,16 +11,19 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +58,7 @@ public class SortingActivity extends Activity implements OnClickListener {
 		sortTypeNumber = getIntent().getIntExtra("fer.sortko.com.sortTypeNumber", 0);
 		startSort();
 
-		ImageView changeSort = (ImageView) findViewById(R.id.changeSort);
+		TextView changeSort = (TextView) findViewById(R.id.changeSort);
 		changeSort.setId(3000);
 		changeSort.setOnClickListener((OnClickListener) this);
 
@@ -136,6 +139,29 @@ public class SortingActivity extends Activity implements OnClickListener {
 		case 3000: changeSort();
 		break;
 		}
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.options_menu, menu);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+		Intent browserIntent;
+		switch (item.getItemId()) {
+	        case R.id.menu_help:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_help)));
+	        	startActivity(browserIntent);
+	            return true;
+	        case R.id.menu_about:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_about)));
+	        	startActivity(browserIntent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 	
 	private void changeSort(){

@@ -20,14 +20,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ResultsActivity extends ListActivity implements OnClickListener{
@@ -37,7 +40,6 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	private long sortingResult = 0;
 	private int sortTypeNumber = 0;
 	private String username = "";
-	private String jmbag = "";
 	private String methodName;
 	private String methodParams;
     private ProgressDialog resultsProgressDialog = null;
@@ -60,12 +62,12 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         if(sortingResult != 0){
 	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 	        username = settings.getString("username", this.getString(R.string.username_Default));
-	        jmbag = settings.getString("jmbag", this.getString(R.string.uniquestudentid_Default));
+	        //jmbag = settings.getString("jmbag", this.getString(R.string.uniquestudentid_Default));
 	        
 	        methodName = "PohraniRezultat";
 			
 	        try {
-	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&jmbag=" + URLEncoder.encode(jmbag,"UTF-8") + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber; 
+	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&jmbag=1234567890&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber; 
 	        }
 	        catch (Exception e){
 	        	Log.e("URLEncoder", e.getMessage());
@@ -74,7 +76,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         }
         
         TextView listTitle = (TextView) findViewById(R.id.listtitle);
-        ImageView changeList = (ImageView) findViewById(R.id.changeList);
+        TextView changeList = (TextView) findViewById(R.id.changeList);
         changeList.setVisibility(4);
 		changeList.setOnClickListener((OnClickListener) this);
         
@@ -118,6 +120,29 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 			changeList();
 		}
 	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.options_menu, menu);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+		Intent browserIntent;
+		switch (item.getItemId()) {
+	        case R.id.menu_help:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_help)));
+	        	startActivity(browserIntent);
+	            return true;
+	        case R.id.menu_about:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_about)));
+	        	startActivity(browserIntent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 	private void getResults(int idVrsteSorta){
 		try{
@@ -159,8 +184,8 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	
 	private String callWebService(String methodName, String methodParams){
 		HttpClient client = new DefaultHttpClient();
-    	HttpHost targetHost = new HttpHost("www.sortko.com.hr",80,"http");
-    	HttpGet httpGet = new HttpGet("/sortkoservice.svc/"+methodName+"?"+methodParams);
+    	HttpHost targetHost = new HttpHost(getString(R.string.url_domain_webservice),80,"http");
+    	HttpGet httpGet = new HttpGet(getString(R.string.url_path_webservice)+methodName+"?"+methodParams);
     	String result = null;
         HttpEntity entity = null;
         try {
@@ -203,7 +228,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
 	private void changeList(){
         TextView listTitle = (TextView) findViewById(R.id.listtitle);
         listTitle.setText(this.getString(R.string.overallresults));
-        ImageView changeList = (ImageView) findViewById(R.id.changeList);
+        TextView changeList = (TextView) findViewById(R.id.changeList);
         changeList.setVisibility(4);
 		
 		viewResults = new Runnable(){

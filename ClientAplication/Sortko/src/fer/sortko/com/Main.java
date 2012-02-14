@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -19,9 +23,7 @@ public class Main extends Activity{
 	public static final String SORTKO_PREFS = "SortkoPrefsFile";
 	
 	private String username = "";
-	private String jmbag = "";
 	private EditText usernameedit;
-	private EditText jmbagedit;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,18 +40,13 @@ public class Main extends Activity{
         results.setOnClickListener(myListener);
         
         usernameedit = (EditText)findViewById(R.id.editusername);
-        jmbagedit = (EditText)findViewById(R.id.editjmbag);
         
         SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 
         username = settings.getString("username",getResources().getString(R.string.username_Default));
-        jmbag = settings.getString("jmbag",getResources().getString(R.string.uniquestudentid_Default));
         
         if (username != getResources().getString(R.string.username_Default)){
         	usernameedit.setText(username);
-        }
-        if (jmbag != getResources().getString(R.string.uniquestudentid_Default)){
-        	jmbagedit.setText(jmbag);
         }
 	}  
 	
@@ -69,10 +66,32 @@ public class Main extends Activity{
 		      SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 		      SharedPreferences.Editor editor = settings.edit();
 		      editor.putString("username", usernameedit.getText().toString());
-		      editor.putString("jmbag", jmbagedit.getText().toString());
 		      editor.commit();
 		}
 	};
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.options_menu, menu);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+		Intent browserIntent;
+		switch (item.getItemId()) {
+	        case R.id.menu_help:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_help)));
+	        	startActivity(browserIntent);
+	            return true;
+	        case R.id.menu_about:
+	        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_about)));
+	        	startActivity(browserIntent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	
 	private void selectSort(){
 		Resources resources = getResources();

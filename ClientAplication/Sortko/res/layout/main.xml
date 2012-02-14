@@ -43,26 +43,8 @@
 		android:layout_marginRight="30dp">
 	</EditText>
 	
-	<TextView android:id="@+id/jmbag"
-		android:layout_alignParentRight="true"
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content" 
-	    android:paddingTop="3dp"
-	    android:textStyle="bold"
-	    android:textSize="18dp"
-	    android:textColor="#fff"
-	    android:text="@string/uniquestudentid"
-    />
-	<EditText android:id="@+id/editjmbag"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:hint="@string/uniquestudentid_hint"
-		android:gravity="center"
-		android:layout_marginTop="10dp"
-		android:layout_marginLeft="30dp"
-		android:layout_marginRight="30dp">
-	</EditText>
+	
+	
 	<LinearLayout android:id="@+id/buttonsform"
     android:layout_marginTop="20dp"
     android:orientation="horizontal"
