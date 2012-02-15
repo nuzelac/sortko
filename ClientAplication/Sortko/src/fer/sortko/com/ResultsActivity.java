@@ -62,12 +62,12 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         if(sortingResult != 0){
 	        SharedPreferences settings = getSharedPreferences(SORTKO_PREFS, 0);
 	        username = settings.getString("username", this.getString(R.string.username_Default));
-	        //jmbag = settings.getString("jmbag", this.getString(R.string.uniquestudentid_Default));
 	        
-	        methodName = "PohraniRezultat";
+	        
+	        methodName = "pohranirezultat";
 			
 	        try {
-	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&jmbag=1234567890&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber; 
+	        	methodParams = "igrac=" + URLEncoder.encode(username,"UTF-8") + "&rezultat=" + sortingResult + "&idvrstesorta=" + sortTypeNumber;
 	        }
 	        catch (Exception e){
 	        	Log.e("URLEncoder", e.getMessage());
