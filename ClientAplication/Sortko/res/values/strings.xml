@@ -84,8 +84,8 @@
 <string name="shell_copyOrderErrorMessage">When copying elements in the array be mindful of the order in which you do so. First select the element to be copied and then select the destination spot.</string>
 
 <!-- Context menu URLs -->
-<string name="url_help">http://161.53.18.12/Sortko/instructions.html</string>
-<string name="url_about">http://161.53.18.12/Sortko/default.html</string>
+<string name="url_help">http://nihao.fer.hr/Sortko/instructions.html</string>
+<string name="url_about">http://nihao.fer.hr/Sortko/default.html</string>
 
 <!-- Do not localize -->
 <string name="sortko_prefrences">SortkoPrefsFile</string>
@@ -96,7 +96,7 @@
 	<item>Shell Sort</item>
 	<item>Selection Sort</item>
 </string-array>
-<string name="url_domain_webservice">161.53.18.12</string>
+<string name="url_domain_webservice">nihao.fer.hr</string>
 <string name="url_path_webservice">/SortkoService/sortkoservice.svc/</string>
 
 </resources>

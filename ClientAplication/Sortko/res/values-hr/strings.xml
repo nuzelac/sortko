@@ -84,7 +84,7 @@
 <string name="shell_copyOrderErrorMessage">Prilikom kopiranja elemenata niza paziti na redoslijed kopiranja. Prvo se odabire element koji se kopira, a zatim odredište kopiranja.</string>
 
 <!-- Context menu URLs -->
-<string name="url_help">http://161.53.18.12/Sortko/instructionshr.html</string>
-<string name="url_about">http://161.53.18.12/Sortko/defaulthr.html</string>
+<string name="url_help">http://nihao.fer.hr/Sortko/instructionshr.html</string>
+<string name="url_about">http://nihao.fer.hr/Sortko/defaulthr.html</string>
 
 </resources>
