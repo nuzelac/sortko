@@ -58,7 +58,7 @@
 <string name="quick_hidden">Cacher le pivot dans le lieu suivant pour le dernier.</string>
 <string name="quick_regularQs">Trouver un élément égal ou plus grand que le pivot dans les éléments à droite de l\'élément dans le lieu %d. Trouver un moindre élément ou ainsi que le pivot dans les éléments qui précèdent l\'élément dans le lieu %d. Les échanger ou rendre le pivot à son lieu.</string> 
 <string name="quick_returnSt">Rendre le pivot à son lieu. (Lugar %d)</string>
-<string name="quick_insertion">Sort the subarray between spots %d and %d using the Insertion Sort algorithm.</string>
+<string name="quick_insertion">Ordonnez le subarray entre les sites %d et %d  en utilisant l´algorithme insertion commandée.</string>
 <string name="quick_median_12">%s (l\'élément premier et central)</string>
 <string name="quick_median_13">%s (l\'élément premier et dernier)</string>
 <string name="quick_median_23">%s (l\'élément central et dernier )</string>
@@ -78,5 +78,9 @@
 <string name="shell_stepReturn">Rendre l\'élément stocké dans la variable temporelle dans le lieu approprié.</string>
 <string name="shell_stepInsertionSort">Ordonner en utilisant le pas dq\'ordonnance par une insertion. (hk = 1)</string>
 <string name="shell_copyOrderErrorMessage">Dans la copie d\'éléments dans le vecteur tu as à comprendre l\'ordre dans lequel tu le fais. D\'abord sélectionner l\'élément à copier et après sélectionner le lieu de destination(destin).</string>
+
+ <!-- Menu - options_menu.xml -->
+<string name="menu_help">Aide</string>
+<string name="menu_about">Sur Sortko</string>
 
 </resources>

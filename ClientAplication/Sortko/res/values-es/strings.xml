@@ -79,4 +79,8 @@
 <string name="shell_stepInsertionSort">Ordena usando el paso de ordenamiento por inserción. (hk = 1)</string>
 <string name="shell_copyOrderErrorMessage">En la copia de elementos en el vector se consciente del orden en el que lo haces. Primero selecciona el elemento a copiar y después seleciona el lugar de destino.</string>
 
+ <!-- Menu - options_menu.xml -->
+<string name="menu_help">Ayuda</string>
+<string name="menu_about">Acerca de Sortko</string>
+
 </resources>
