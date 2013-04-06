@@ -28,7 +28,7 @@
 	    android:layout_height="wrap_content" 
 	    android:paddingTop="3dp"
 	    android:textStyle="bold"
-	    android:textSize="18dp"
+	    android:textSize="@dimen/username"
 	    android:textColor="#fff"
 	    android:text="@string/username"
     />
@@ -57,7 +57,7 @@
     		android:layout_height="wrap_content"
     		android:background="@drawable/button"
     		android:textColor="#ffffff"	
-    		android:textSize="20dp"
+    		android:textSize="@dimen/sortit"
 			android:textStyle ="bold"
     	    android:paddingTop="10dp">
     	</Button>
@@ -67,7 +67,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/button"
 			android:textColor="#ffffff"
-			android:textSize="20dp"
+			android:textSize="@dimen/results"
 			android:textStyle ="bold"
 		    android:paddingTop="10dp"
 		    android:layout_marginLeft="10dp">

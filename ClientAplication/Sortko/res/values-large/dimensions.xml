@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- main.xml -->
+     <dimen name="username">22sp</dimen>
+     <dimen name="sortit">26sp</dimen>
+     <dimen name="results">26sp</dimen>
+   
+    <!-- sort.xml -->
+     <dimen name="sortpoints">56sp</dimen>
+     <dimen name="sortname">32sp</dimen>
+     <dimen name="changeSort">22sp</dimen>
+     <dimen name="sortHelpMessage">20sp</dimen>
+     <dimen name="helpvariable">24sp</dimen>
+     
+    <!-- result.xml -->
+     <dimen name="achievedresult">20sp</dimen>
+     <dimen name="result">22sp</dimen>
+     <dimen name="selectsort">20sp</dimen>
+     <dimen name="overallresults">18sp</dimen>
+     <dimen name="overall">13sp</dimen>
+</resources>
