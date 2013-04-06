@@ -22,7 +22,7 @@
     android:paddingTop="10dp"
     android:paddingRight="10dp"
     android:textStyle="bold"
-    android:textSize="32dp"
+    android:textSize="32sp"
     android:textColor="#fff"
     android:text="0"
     />
@@ -34,7 +34,7 @@
     android:paddingTop="10dp"
     android:paddingLeft="10dp"
     android:textStyle="bold"
-    android:textSize="22dp"
+    android:textSize="22sp"
     android:textColor="#fff"
     android:text="@string/sort_name_default"
     />
@@ -42,7 +42,7 @@
 <TextView android:id="@+id/changeSort"
 	android:text="@string/change_sort_type"
 	android:textStyle="bold"
-	android:textSize="13dp"
+	android:textSize="13sp"
 	android:textColor="#ff7d00"
 	android:layout_toRightOf="@+id/sortname"
 	android:src="@drawable/change_sort"
@@ -61,7 +61,7 @@
     android:paddingTop="15dp"
     android:paddingLeft="12dp"
     android:textStyle="bold"
-    android:textSize="16dp"
+    android:textSize="16sp"
     android:text="@string/sortHelpMessage"
     />
     
@@ -85,7 +85,7 @@
 	android:layout_height="53dp"
 	android:background="@drawable/button"
 	android:visibility="invisible"
-	android:textSize="24dp"
+	android:textSize="24sp"
 	android:textStyle ="bold"
 	android:textColor="#ffffff"
 	android:layout_margin ="12dp">
