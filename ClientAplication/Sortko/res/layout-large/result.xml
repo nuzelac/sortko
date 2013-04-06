@@ -30,7 +30,7 @@
 		    android:gravity="center"
 		    android:paddingTop="20dp"
 		    android:textStyle="bold"
-		    android:textSize="20dp"
+		    android:textSize="@dimen/achievedresult"
 		    android:textColor="#fff"
 		    android:text="@string/achievedresult"
 		/>
@@ -40,7 +40,7 @@
 		    android:gravity="center"
 		    android:paddingTop="10dp"
 		    android:textStyle="bold"
-		    android:textSize="22dp"
+		    android:textSize="@dimen/result"
 		    android:textColor="#fff"
 		    android:text="0"
 		/>
@@ -49,7 +49,7 @@
 			android:layout_marginTop="30dp"
 			android:background="@drawable/button"
 			android:textColor="#ffffff"
-			android:textSize="20dp"
+			android:textSize="@dimen/selectsort"
 			android:textStyle ="bold"
 		   	android:layout_width="wrap_content"
 		   	android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
 			android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:textStyle="bold"
-			android:textSize="18dp"
+			android:textSize="@dimen/overallresults"
 			android:textColor="#fff"
 	    	android:text="@string/overallresults">
 	    </TextView>
@@ -87,7 +87,7 @@
 		    android:layout_marginLeft="10dp"
 		    android:paddingTop="7dp"
 		    android:textStyle="bold"
-			android:textSize="13dp"
+			android:textSize="@dimen/overall"
 			android:textColor="#ff7d00"
 	    	android:text="@string/overall">
 	    </TextView>
