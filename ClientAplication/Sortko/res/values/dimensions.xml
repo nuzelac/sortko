@@ -11,6 +11,9 @@
      <dimen name="changeSort">13sp</dimen>
      <dimen name="sortHelpMessage">16sp</dimen>
      <dimen name="helpvariable">24sp</dimen>
+
+     <!-- button.xml -->
+     <dimen name="button">26sp</dimen>
      
     <!-- result.xml -->
      <dimen name="achievedresult">20sp</dimen>
