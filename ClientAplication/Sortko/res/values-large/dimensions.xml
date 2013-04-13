@@ -10,7 +10,7 @@
      <dimen name="sortname">32sp</dimen>
      <dimen name="changeSort">22sp</dimen>
      <dimen name="sortHelpMessage">20sp</dimen>
-     <dimen name="helpvariable">24sp</dimen>
+     <dimen name="helpvariable">34sp</dimen>
      
      <!-- button.xml -->
      <dimen name="button">34sp</dimen>
