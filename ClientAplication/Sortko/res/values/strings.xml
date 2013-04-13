@@ -60,7 +60,7 @@
 <string name="quick_sortStartMessage">Start sorting by calculating the median of the elements at spots 1, 4 and 8 by comparing them and exchanging them if necessary. If no exchanges are necessary, hide the pivot in next-to-last spot.</string>
 <string name="quick_median" formatted="false">Calculate the median of the elements at spot %d, the (left) middle spot and spot %d by comparing them and exchanging them if necessary.</string>
 <string name="quick_hidden">Hide the pivot in the next-to-last spot.</string>
-<string name="quick_regularQs" formatted="false">Find an element equal to or larger than the pivot in the elements to the right of the element at spot %d. Find an element smaller than or equal to the pivot in the elements preceeding the element at spot %d. Exchange them or return the pivot to its spot.</string> 
+<string name="quick_regularQs" formatted="false">Find an element equal to or larger than the pivot in the elements to the right of the element at spot %d. Find an element smaller than or equal to the pivot in the elements preceding the element at spot %d. Exchange them or return the pivot to its spot.</string> 
 <string name="quick_returnSt" formatted="false">Return the pivot to its spot. (Spot %d)</string>
 <string name="quick_insertion" formatted="false">Sort the subarray between spots %d and %d using the Insertion Sort algorithm.</string>
 <string name="quick_median_12" formatted="false">%s (the first and middle element)</string>
