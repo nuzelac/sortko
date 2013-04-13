@@ -46,7 +46,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
     private ArrayList<Result> results = null;
     private ResultAdapter resultsAdapter;
     private Runnable viewResults;
-	//TODO: spremanje rezultata u bazu podataka tako da ako nema veze da se može uploadati kasnije
+	//TODO: spremanje rezultata u bazu podataka tako da ako nema veze da se moï¿½e uploadati kasnije
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +150,7 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
         	
             String[] items = result.substring(result.indexOf(">")+1,result.indexOf("</string>")).split("&#xD;",50);
             // header == <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-            // result == MarkoMarulic§139909&#xD;
+            // result == MarkoMarulicÂ§139909&#xD;
             // footer == </string>
             int resultNumber = 0;
             results = new ArrayList<Result>();
@@ -158,8 +158,8 @@ public class ResultsActivity extends ListActivity implements OnClickListener{
             	
                 Result r = new Result();
                 r.setResultPlace(Integer.toString(++resultNumber)+".");
-            	r.setResultUser(item.substring(0, item.indexOf("§")).trim());
-            	r.setResultNumber(item.substring(item.indexOf("§")+1));
+            	r.setResultUser(item.substring(0, item.indexOf("Â§")).trim());
+            	r.setResultNumber(item.substring(item.indexOf("Â§")+1));
             	results.add(r);
             }
 		}catch (Exception e) { 
